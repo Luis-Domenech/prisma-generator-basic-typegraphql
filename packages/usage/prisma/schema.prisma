@@ -10,7 +10,7 @@ generator basic_typegraphql {
   outputName      = "type-graphql.ts"
   wipeOutput      = true
   useYarn         = true
-  hideNonScalars  = false
+  hideRelations   = false
   strictModifiers = true
   skipVerCheck    = false
   installDeps     = false
