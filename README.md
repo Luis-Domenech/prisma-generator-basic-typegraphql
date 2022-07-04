@@ -14,14 +14,14 @@ Essentially, this generator exports one file into a desired directory with all m
 The generator can be configured with the following options:
 | Option            | Value                       | Default                                             | Comment                                                                                       |
 | ----------------- |:---------------------------:|:---------------------------------------------------:| ---------------------------------------------------------------------------------------------:|
-| output            | ```typescript string ```    | ```typescript '../src/generated/type-graphql' ```   | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
-| outputName        | ```typescript string ```    | ```typescript 'type-graphql.ts' ```                 | Name of the file to generate.                                                                 |
-| wipeOutput        | ```typescript boolean ```   | ```typescript false ```                             | If true, output folder will be deleted before new file is generated.                          |
-| strictModifiers   | ```typescript boolean ```   | ```typescript false ```                             | If true, all modifiers require to have '///' and be on top of field it modifies.              |
-| installDeps       | ```typescript boolean ```   | ```typescript false ```                             | If true, dependencies based on schema will be installed like graphql-scalars.                 |
-| useYarn           | ```typescript boolean ```   | ```typescript false ```                             | Sets whether to use yarn or npm for installing packages if installDeps is true.               |
-| hideRelations     | ```typescript boolean ```   | ```typescript false ```                             | By default, all fields are emitted. If set to true, this will omit all relation types.        |
-| skipVerCheck      | ```typescript boolean ```   | ```typescript false ```                             | If true, generator will run without checking installed prisma version.                        |
+| output            | ``` string ```              | ``` '../src/generated/type-graphql' ```             | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
+| outputName        | ``` string ```              | ``` 'type-graphql.ts' ```                           | Name of the file to generate.                                                                 |
+| wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                          |
+| strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.              |
+| installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                 |
+| useYarn           | ``` boolean ```             | ``` false ```                                       | Sets whether to use yarn or npm for installing packages if installDeps is true.               |
+| hideRelations     | ``` boolean ```             | ``` false ```                                       | By default, all fields are emitted. If set to true, this will omit all relation types.        |
+| skipVerCheck      | ``` boolean ```             | ``` false ```                                       | If true, generator will run without checking installed prisma version.                        |
 
 ## Modifiers
 If you want to modify a field, you can write a comment and add the modifiers above the field or after the field. If the strictModifiers is true, then modifiers can only be typed above the field and must have '///' so wwe know it is a modifier and not a comment.
@@ -43,3 +43,4 @@ Modifiers: (I put various options for every modifier so you can choose whichever
 ## Important Notes
 1. Prisma Unsupported type is not passed to the generator, so we can't deal with that type.
 2. The code here was sourced from multiple places inlcuding [create-prisma-generator](https://github.com/YassinEldeeb/create-prisma-generator), [typegraphql-prisma](https://github.com/MichalLytek/typegraphql-prisma) and [prisma-dbml-generator](https://github.com/notiz-dev/prisma-dbml-generator)
+3. Image in this readme was sourced from [typegraphql-prisma](https://github.com/MichalLytek/typegraphql-prisma)

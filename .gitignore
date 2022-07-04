@@ -110,3 +110,4 @@ build
 pnpm-debug.log
 .env*
 .DS_Store
+yarn.lock
