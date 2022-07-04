@@ -9,13 +9,34 @@ An extremely basic typegraphql type generator for prisma. I needed something lik
 
 Essentially, this generator exports one file into a desired directory with all models and enums converted to TypeGraphQL types which you can then use in your TypeGraphQL dependent project.
 
+## Installation
+You can install this generator with:
+```yarn add --dev prisma-generator-basic-typegraphql```
+or
+```npm i -D prisma-generator-basic-typegraphql```
+
+## Usage 
+To use the generator, add the following to your schema.prisma file:
+```typescript
+generator basic_typegraphql {
+  provider        = "prisma-generator-basic-typegraphql"
+  output          = "../generated/type-graphql"
+  outputName      = "type-graphql.ts"
+  wipeOutput      = true
+  useYarn         = true
+  hideRelations   = false
+  strictModifiers = true
+  skipVerCheck    = false
+  installDeps     = false
+}
+```
 
 ## Config Options
 The generator can be configured with the following options:
 | Option            | Value                       | Default                                             | Comment                                                                                       |
 | ----------------- |:---------------------------:|:---------------------------------------------------:| ---------------------------------------------------------------------------------------------:|
-| output            | ``` string ```              | ``` '../src/generated/type-graphql' ```             | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
-| outputName        | ``` string ```              | ``` 'type-graphql.ts' ```                           | Name of the file to generate.                                                                 |
+| output            | ``` string ```              | ``` ../src/generated/type-graphql ```               | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
+| outputName        | ``` string ```              | ``` type-graphql.ts ```                             | Name of the file to generate.                                                                 |
 | wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                          |
 | strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.              |
 | installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                 |
