@@ -1,17 +1,98 @@
-generator custom_generator {
-  provider = "node ../../node_modules/prisma-generator-basic-typegraphql"
-  output   = "../types"
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "interactiveTransactions", "metrics"]
+}
+
+
+generator basic_typegraphql {
+  provider        = "prisma-generator-basic-typegraphql"
+  output          = "../generated/type-graphql"
+  outputName      = "type-graphql.ts"
+  wipeOutput      = true
+  useYarn         = true
+  hideNonScalars  = false
+  strictModifiers = true
+  skipVerCheck    = false
+  installDeps     = false
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+model TestScalarsRequired {
+  id        String  @unique
+  big_int   BigInt
+  boolean   Boolean
+  bytes     Bytes
+  datetime  DateTime
+  decimal   Decimal
+  float     Float
+  int       Int
+  json      Json
+  string    String
+}
+
+model TestScalarsOptional {
+  id        String  @unique
+  big_int   BigInt? 
+  boolean   Boolean?
+  bytes     Bytes?
+  datetime  DateTime?
+  decimal   Decimal?
+  float     Float?
+  int       Int?
+  json      Json?
+  string    String?
+}
+
+model TestEnumsRequired {
+  id                String  @unique
+  notification_type NotificationType
+  langauge          Language
+}
+
+model TestEnumsOptional {
+  id                String  @unique
+  notification_type NotificationType?
+  langauge          Language?
+}
+
+model TestRelational {
+  id      String  @unique
+  user    User?
+  posts   Post[]
+}
+
+model TestOmits {
+  id    String  @unique
+  /// @omit always
+  test1 String
+  // @omit omits iff strictModifiers is false
+  test2 String
+  test3 String  /// @omit omits iff strictModifiers is false
+  test4 String  //  @omit omits iff strictModifiers is false
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id                  Int     @id @default(autoincrement())
+  email               String  @unique
+  name                String?
+  post                Post[]
+  /// @omit
+  password            String
+  test_relational     TestRelational  @relation(fields: [test_relational_id], references: [id])
+  test_relational_id  String  @unique
+}
+
+model Post {
+  id                  Int   @id @default(autoincrement())
+  content             String
+  user                User  @relation(fields: [user_id], references: [id])
+  user_id             Int
+  test_relational     TestRelational  @relation(fields: [test_relational_id], references: [id])
+  test_relational_id  String  @unique
 }
 
 enum NotificationType {

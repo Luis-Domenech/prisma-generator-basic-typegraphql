@@ -9,6 +9,7 @@
     "husky": "7.0.4"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "yarn && cd ./packages/generator && yarn && yarn build && cd ../usage && yarn && yarn gen"
   }
 }
