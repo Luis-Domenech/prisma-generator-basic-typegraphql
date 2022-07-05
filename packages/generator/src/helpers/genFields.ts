@@ -2,6 +2,7 @@ import { DMMF } from '@prisma/generator-helper'
 import { ENUM_TYPE_SUFFIX, INDENT_SPACES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
+import { logger } from '../utils/logger'
 import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
 export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
@@ -26,6 +27,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     } 
 
 
+
     let fieldName = field.name
     fieldName += isOptional ? '?' : (isRelation ? optionalRelations ? '?' : '!' : '!')
 
@@ -34,8 +36,8 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
 
-    if (isOptional && config.addNull) fieldType += ' | null'
-    if (isOptional && config.addUndefined) fieldType += ' | undefined'
+    if (fieldName.includes("?") && config.addNull) fieldType += ' | null'
+    if (fieldName.includes("?") && config.addUndefined) fieldType += ' | undefined'
 
     // GraphQL Type
     let fieldGraphQLType = getGraphQLType(field, toImport) + fieldGraphQLTypeEnumExtension
@@ -51,7 +53,6 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
     const fieldText = ` ${" ".repeat(INDENT_SPACES)}${fieldName}: ${fieldType}`
     
-
     return (`${decoratorText}${fieldText}\n`)
   }).join("\n")
 
