@@ -1,7 +1,7 @@
 import { DMMF } from "@prisma/generator-helper"
 import { ENUM_TYPE_SUFFIX, PRISMA_TYPES } from "../constants"
 import { InitializedConfig } from "../types";
-import { isEnum } from "../utils/isEnum";
+import { isAnEnum } from "../utils/isEnum";
 
 export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
   if (PRISMA_TYPES.includes(field.type)) {
@@ -33,8 +33,7 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
 }
 
 export const isRelational = (field: DMMF.Field, enums: string, config: InitializedConfig): boolean => {
-  const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
-  let typeIsEnum = isEnum(field, enums, config)
+  let typeIsEnum = isAnEnum(field, enums, config)
 
   return PRISMA_TYPES.indexOf(field.type) === -1 && !typeIsEnum
 }

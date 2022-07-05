@@ -1,6 +1,7 @@
-import { NULLABLE_MODIFERS, OMIT_MODIFERS, OVERRIDE_OMIT_MODIFERS } from "../constants"
+import { NULLABLE_MODIFERS, OMIT_MODIFERS, OVERRIDE_OMIT_MODIFERS, REGEX } from "../constants"
 import { FieldModifier, InitializedConfig } from "../types"
 import { contains } from "../utils/contains"
+import { matchAndRemove } from "../utils/matchAndReplace"
 
 // Get modifers from schema, meaning get stuff like //@omit
 export const getFieldModifiers = (dataModel: string, config: InitializedConfig): FieldModifier[] => {
@@ -23,10 +24,10 @@ export const getFieldModifiers = (dataModel: string, config: InitializedConfig):
       else if (contains(line, NULLABLE_MODIFERS)) return (nullable = true)
     }
 
-    if (line.includes('model')) currentCodeBlock = { name: line.split(' ')[1], type: 'model' }
-    else if (line.includes('enum')) currentCodeBlock = { name: line.split(' ')[1], type: 'enum' }
+    if (line.includes('model') && line.includes("{")) currentCodeBlock = { name: matchAndRemove(line, REGEX.matchWordeBeforeBracketRegex, REGEX.removeWhiteSpaceAndBracketRegex), type: 'model' }
+    else if (line.includes('model') && line.includes("{")) currentCodeBlock = { name: matchAndRemove(line, REGEX.matchWordeBeforeBracketRegex, REGEX.removeWhiteSpaceAndBracketRegex), type: 'enum' }
 
-    const fieldName = line.split(' ').filter((e) => e !== '').map((e) => e.replace('\r', ''))[0]
+    let fieldName = line.match(REGEX.matchFirstWord) ? line.match(REGEX.matchFirstWord)![0] : ''
 
     // Check if modifier is on same line as in at the end
     // Example: password String @db.VarChar(64) // @omit

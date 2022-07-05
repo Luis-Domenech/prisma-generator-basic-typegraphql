@@ -1,8 +1,8 @@
 import { DMMF } from '@prisma/generator-helper'
-import { ENUM_TYPE_SUFFIX, INDENT_SPACES } from '../constants'
+import { ENUM_TYPE_SUFFIX, INDENT_SPACES, PRISMA_TYPES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
-import { isEnum } from '../utils/isEnum'
+import { isAnEnum } from '../utils/isEnum'
 import { logger } from '../utils/logger'
 import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
@@ -13,15 +13,16 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
   let fieldsString = fields.map(field => {
     let fieldModifier: FieldModifier | undefined = fieldModifiers.find((e: FieldModifier) => e.fieldName === field.name && e.modelName === model.name)
     let fieldOptional: FieldOptional | undefined = fieldsOptional.find((e: FieldOptional) => e.fieldName === field.name && e.modelName === model.name)
+    
     let isOptional = fieldOptional ? fieldOptional.optional : false
 
     if (!fieldModifier) fieldModifier = {fieldName: field.name, modelName: model.name, hide: false, nullable: false}
 
     const hideRelations = config.hideRelations
     const optionalRelations = config.optionalRelations
+    const isScalar = PRISMA_TYPES.indexOf(field.type) !== -1
     const isRelation = isRelational(field, enums, config)
-    const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
-    let typeIsEnum = isEnum(field, enums, config)
+    let isEnum = isAnEnum(field, enums, config)
 
 
 
@@ -30,7 +31,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)
-    const fieldGraphQLTypeEnumExtension = config.enumAsType && typeIsEnum ? ENUM_TYPE_SUFFIX : ''
+    const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
 
     if (fieldName.includes("?") && config.addNull) fieldType += ' | null'

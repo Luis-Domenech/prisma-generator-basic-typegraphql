@@ -5,17 +5,17 @@ generator client {
 
 
 generator basic_typegraphql {
-  provider        = "node ../../node_modules/prisma-generator-basic-typegraphql"
-  output          = "../generated/type-graphql-types"
-  outputName      = "index.ts"
-  wipeOutput      = true
-  useYarn         = true
+  provider          = "node ../../node_modules/prisma-generator-basic-typegraphql"
+  output            = "../generated/type-graphql-types"
+  outputName        = "index.ts"
+  wipeOutput        = true
+  useYarn           = true
   optionalRelations = true
-  strictModifiers = true
-  skipVerCheck    = false
-  installDeps     = true
-  enumAsType      = true
-  addNull         = true
+  strictModifiers   = true
+  skipVerCheck      = false
+  installDeps       = true
+  enumAsType        = true
+  addNull           = true
 }
 
 datasource db {

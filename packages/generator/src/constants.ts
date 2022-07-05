@@ -58,3 +58,13 @@ export const SCALARS = [
 export const ENUM_TYPE_SUFFIX = '_Enum' //Appended after every enum if enumAsType is true
 
 export const INDENT_SPACES = 2
+
+export const REGEX = {
+  matchWordeBeforeBracketRegex: /[\w]+\s+\{/gm,
+  matchWordeBeforeEqualsAndBracketRegex: /[\w]+\s+\=+\s+\{+/gm,
+  matchWordInSingleQuotes: /'(.*?)'/gm,
+  matchFirstWord: /[^\s][\w]+/gm,
+  removeWhiteSpaceAndBracketRegex: /\s+\{+/gm,
+  removeEqualsAndWhiteSpaceAndBracketRegex: /\s+\{+/gm,
+  removeSingleQuotes: /(\')*/gm
+}

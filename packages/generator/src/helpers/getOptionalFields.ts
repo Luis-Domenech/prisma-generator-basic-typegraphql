@@ -1,6 +1,8 @@
-import { OPTIONAL_IDENTIFIERS } from "../constants";
+import { OPTIONAL_IDENTIFIERS, REGEX } from "../constants";
 import { FieldOptional } from "../types"
 import { contains } from "../utils/contains";
+import { logger } from "../utils/logger";
+import { matchAndRemove } from "../utils/matchAndReplace";
 
 // Get modifers from schema, meaning get stuff like //@omit
 export const getFieldsOptional = (dataModel: string): FieldOptional[] => {
@@ -11,12 +13,12 @@ export const getFieldsOptional = (dataModel: string): FieldOptional[] => {
 
   dataModel.split('\n').forEach((line) => {
 
-    if (line.includes('model')) currentCodeBlock = { name: line.split(' ')[1], type: 'model' }
-    else if (line.includes('enum')) currentCodeBlock = { name: line.split(' ')[1], type: 'enum' }
+    if (line.includes('model') && line.includes("{")) currentCodeBlock = { name: matchAndRemove(line, REGEX.matchWordeBeforeBracketRegex, REGEX.removeWhiteSpaceAndBracketRegex), type: 'model' }
+    else if (line.includes('model') && line.includes("{")) currentCodeBlock = { name: matchAndRemove(line, REGEX.matchWordeBeforeBracketRegex, REGEX.removeWhiteSpaceAndBracketRegex), type: 'enum' }
 
-    const fieldName = line.split(' ').filter((e) => e !== '').map((e) => e.replace('\r', ''))[0]
+    const fieldName = line.match(REGEX.matchFirstWord) ? line.match(REGEX.matchFirstWord)![0] : ''
 
-    if (contains(line, OPTIONAL_IDENTIFIERS)) {
+    if (contains(line, OPTIONAL_IDENTIFIERS) && currentCodeBlock.type !== 'enum') {
       fieldOptional.push({
         fieldName,
         modelName: currentCodeBlock.name,

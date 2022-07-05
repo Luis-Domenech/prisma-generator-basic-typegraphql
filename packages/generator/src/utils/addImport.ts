@@ -1,6 +1,8 @@
+import { REGEX } from "../constants"
+
 export const getFromImport = (i: string) => {
-  let fromImport = i.match(/'(.*?)'/g)
-  return fromImport ? fromImport[0].replace(/(\')*/gm, '') : ''
+  let fromImport = i.match(REGEX.matchWordInSingleQuotes)
+  return fromImport ? fromImport[0].replace(REGEX.removeSingleQuotes, '') : ''
 }
 
 export const addImport = (newImport: string, fromImport: string, imports: string[]) => {
