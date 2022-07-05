@@ -21,13 +21,6 @@ To use the generator, add the following to your schema.prisma file:
 generator basic_typegraphql {
   provider        = "prisma-generator-basic-typegraphql"
   output          = "../generated/type-graphql"
-  outputName      = "type-graphql.ts"
-  wipeOutput      = true
-  useYarn         = true
-  hideRelations   = false
-  strictModifiers = true
-  skipVerCheck    = false
-  installDeps     = false
 }
 ```
 
