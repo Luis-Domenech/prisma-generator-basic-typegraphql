@@ -21,7 +21,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     let isEnum = false
     
     if (actualEnums) {
-      actualEnums.map(e => { if (e.replace("_Enum", "").includes(field.type)) isEnum = true})
+      actualEnums.map(e => { if (e.replace(ENUM_TYPE_SUFFIX, "").includes(field.type)) isEnum = true})
     } 
 
 
