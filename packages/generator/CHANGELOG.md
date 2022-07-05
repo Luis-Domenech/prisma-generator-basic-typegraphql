@@ -1,3 +1,10 @@
+## [1.0.19](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.18...v1.0.19) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Added enumAsConst feature ([dedcac1](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/dedcac156fe166f368d2ccc0d78737111c01bb37))
+
 ## [1.0.18](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.17...v1.0.18) (2022-07-05)
 
 
