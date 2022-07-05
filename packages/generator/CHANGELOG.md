@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.9...v1.0.10) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed issue when using enumAsType ([d28b019](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/d28b01959ed0818477ffa410fbaceba089f50c6a))
+
 ## [1.0.9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.8...v1.0.9) (2022-07-05)
 
 
