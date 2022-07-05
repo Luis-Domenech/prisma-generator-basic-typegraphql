@@ -14,7 +14,7 @@ export const genEnums = (enums: DMMF.DatamodelEnum[], imports: string[], config:
 
     const enumValues = values.map(({ name }) => `${" ".repeat(INDENT_SPACES)}${name} = '${name}'`).join(',\n')
 
-    const enumAsType = `${" ".repeat(INDENT_SPACES)}export type ${name} = keyof typeof ${name}${ENUM_TYPE_SUFFIX}` 
+    const enumAsType = `export type ${name} = keyof typeof ${name}${ENUM_TYPE_SUFFIX}` 
 
     if (config.enumAsType) {
       return (
