@@ -5,7 +5,7 @@ generator client {
 
 
 generator basic_typegraphql {
-  provider        = "prisma-generator-basic-typegraphql"
+  provider        = "node ../../node_modules/prisma-generator-basic-typegraphql"
   output          = "../generated/type-graphql"
   outputName      = "type-graphql.ts"
   wipeOutput      = true
@@ -22,7 +22,7 @@ datasource db {
 }
 
 model TestScalarsRequired {
-  id        String  @unique
+  id        String  @id @unique
   big_int   BigInt
   boolean   Boolean
   bytes     Bytes
@@ -35,7 +35,7 @@ model TestScalarsRequired {
 }
 
 model TestScalarsOptional {
-  id        String  @unique
+  id        String  @id @unique
   big_int   BigInt? 
   boolean   Boolean?
   bytes     Bytes?

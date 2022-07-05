@@ -8,6 +8,12 @@ export type FieldModifier = {
   override?: boolean // If hideRelation is true, this overrides a default hide of a relation field
 }
 
+export type FieldOptional = {
+  fieldName: string
+  modelName: string // Model this field belongs to
+  optional?: boolean
+}
+
 export interface ExtendedConfig extends Dictionary<string> {
   useYarn: string
   hideRelations: string

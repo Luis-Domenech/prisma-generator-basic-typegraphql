@@ -23,8 +23,8 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
   }
 }
 
-export const isRelational = (field: DMMF.Field): boolean => {
-  return !PRISMA_TYPES.includes(field.type)
+export const isRelational = (field: DMMF.Field, enums: string): boolean => {
+  return !PRISMA_TYPES.includes(field.type) && !enums.includes(field.type)
 }
 
 export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string) => {

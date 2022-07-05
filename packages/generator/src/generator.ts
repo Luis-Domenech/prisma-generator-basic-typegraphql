@@ -8,6 +8,7 @@ import { convertConfig } from './utils/convertConfig'
 import { getFieldModifiers } from './helpers/getModifiers'
 import { removeDir } from './utils/removeDir'
 import { ensureInstalledCorrectPrismaPackage } from './utils/prisma.version'
+import { getFieldsOptional } from './helpers/getOptionalFields'
 
 const { version } = require('../package.json')
 
@@ -31,7 +32,10 @@ generatorHandler({
     if (!config.skipVerCheck) ensureInstalledCorrectPrismaPackage()
 
     const fieldModifiers = getFieldModifiers(options.datamodel, config)
-    const content = await genFileContent(options.dmmf, fieldModifiers, config)
+    const fieldsOptional = getFieldsOptional(options.datamodel)
+    logger.info(fieldModifiers[0])
+    logger.info(fieldsOptional[0])
+    const content = await genFileContent(options.dmmf, fieldModifiers, fieldsOptional, config)
     
     await writeFileSafely(config.outputDir, config.outputName, content)
 
