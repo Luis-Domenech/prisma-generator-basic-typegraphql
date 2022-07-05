@@ -1,3 +1,10 @@
+## [1.0.14](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.13...v1.0.14) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Added decimal scalar to use for Prisma Decimal type ([e3d3cca](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/e3d3ccade6356ca870ed2ea74c01979412d122b2))
+
 ## [1.0.13](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.12...v1.0.13) (2022-07-05)
 
 
