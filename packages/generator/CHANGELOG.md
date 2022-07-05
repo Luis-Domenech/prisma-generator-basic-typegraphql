@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.12...v1.0.13) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed another typo ([8f664b9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/8f664b9735e5affe604b19fd374e38db253024f9))
+
 ## [1.0.12](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.11...v1.0.12) (2022-07-05)
 
 
