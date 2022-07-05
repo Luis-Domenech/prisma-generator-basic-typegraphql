@@ -25,6 +25,8 @@ export interface ExtendedConfig extends Dictionary<string> {
   installDeps: string
   enumAsType: string
   optionalRelations: string
+  addNull: string
+  addUndefined: string
 }
 
 export interface InitializedConfig {
@@ -36,6 +38,8 @@ export interface InitializedConfig {
   installDeps: boolean
   enumAsType: boolean
   optionalRelations: boolean
+  addNull: boolean
+  addUndefined: boolean
   outputName: string
   outputDir: string
 }

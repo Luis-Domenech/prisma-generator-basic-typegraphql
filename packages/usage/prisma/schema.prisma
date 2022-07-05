@@ -15,6 +15,7 @@ generator basic_typegraphql {
   skipVerCheck    = false
   installDeps     = false
   enumAsType      = true
+  addNull         = true
 }
 
 datasource db {

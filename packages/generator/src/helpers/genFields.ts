@@ -17,14 +17,24 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
     const hideRelations = config.hideRelations
     const isRelation = isRelational(field, enums)
+    const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
+    let isEnum = false
+    
+    if (actualEnums) {
+      actualEnums.map(e => { if (e.includes(field.type)) isEnum = true})
+    } 
+
 
     let fieldName = field.name
     fieldName += isOptional ? '?' : (isRelation ? config.optionalRelations ? '?' : '!' : '!')
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)
-    const fieldGraphQLTypeEnumExtension = config.enumAsType && enums.includes(fieldType) ? ENUM_TYPE_SUFFIX : ''
+    const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
+
+    if (isOptional && config.addNull) fieldType += ' | null'
+    if (isOptional && config.addUndefined) fieldType += ' | undefined'
 
     // GraphQL Type
     let fieldGraphQLType = getGraphQLType(field, toImport) + fieldGraphQLTypeEnumExtension

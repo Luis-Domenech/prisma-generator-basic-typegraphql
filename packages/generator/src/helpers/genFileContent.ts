@@ -1,4 +1,5 @@
 import { DMMF } from "@prisma/generator-helper"
+import { logger } from "../utils/logger"
 import { AUTO_GENERATED_COMMENT } from "../constants"
 import { FieldModifier, FieldOptional, InitializedConfig } from "../types"
 import { addImport } from "../utils/addImport"

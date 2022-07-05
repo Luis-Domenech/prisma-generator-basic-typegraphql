@@ -38,6 +38,8 @@ The generator can be configured with the following options:
 | skipVerCheck      | ``` boolean ```             | ``` false ```                                       | If true, generator will run without checking installed prisma version.                             |
 | enumAsType        | ``` boolean ```             | ``` false ```                                       | If true, generator will make all enums types which might help with prisma enums which are consts. Generated types will be named same as enum and actual enum will be named the same with `_Enum` attached at the end. |
 | optionalRelations | ``` boolean ```             | ``` true ```                                        | If true, generator will make all relation fields optional.                                         |
+| addNull           | ``` boolean ```             | ``` false ```                                       | If true, generator will add '| null' to TS type of optional fields.                                |
+| addUndefined      | ``` boolean ```             | ``` false ```                                       | If true, generator will add '| undefined' to TS type of optional fields.                           |
 
 ## Modifiers
 If you want to modify a field, you can write a comment and add the modifiers above the field or after the field. If the strictModifiers is true, then modifiers can only be typed above the field and must have '///' so wwe know it is a modifier and not a comment.
