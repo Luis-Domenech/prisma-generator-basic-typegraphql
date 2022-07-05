@@ -1,3 +1,11 @@
+## [1.0.12](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.11...v1.0.12) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixxed typo ([96bc5c4](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/96bc5c479d5cfa4ec20571974548213498984de0))
+* **generator:** Improved enum type checking ([bb13afa](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/bb13afa1f8dc93b361e81befd0fc59dc1395c4ac))
+
 ## [1.0.11](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.10...v1.0.11) (2022-07-05)
 
 
