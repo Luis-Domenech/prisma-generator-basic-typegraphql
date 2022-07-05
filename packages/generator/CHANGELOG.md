@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.15...v1.0.16) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed isRelational logic ([21994f5](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/21994f5e71c979657cf47d9048c49952e099115a))
+
 ## [1.0.15](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.14...v1.0.15) (2022-07-05)
 
 
