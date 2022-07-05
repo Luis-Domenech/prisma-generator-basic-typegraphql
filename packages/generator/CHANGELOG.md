@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.8...v1.0.9) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed indent issue on enum types ([33f1ec1](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/33f1ec13d003d6cc2b75d8789449da6dd7aac735))
+
 ## [1.0.8](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.7...v1.0.8) (2022-07-05)
 
 

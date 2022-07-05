@@ -1,7 +1,7 @@
 {
   "name": "prisma-generator-basic-typegraphql",
   "description": "A very simple typegraphql object generator based on prisma schemas",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "dist/generator.js",
   "license": "MIT",
   "bin": {
