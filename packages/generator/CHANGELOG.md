@@ -1,3 +1,10 @@
+## [1.0.20](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.19...v1.0.20) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Improved pattern matching across generator ([35bfe35](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/35bfe353372402b0ea8db33cd46eb695bd8962ce))
+
 ## [1.0.19](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.18...v1.0.19) (2022-07-05)
 
 
