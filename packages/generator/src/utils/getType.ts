@@ -1,7 +1,7 @@
 import { DMMF } from "@prisma/generator-helper"
 import { PRISMA_TYPES } from "../constants"
 
-export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string) => {
+export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
   if (PRISMA_TYPES.includes(field.type)) {
     switch (field.type) {
       case 'String': return 'string'
@@ -17,17 +17,16 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
         return 'Prisma.JsonValue'
       case 'Bytes': return 'Buffer'
     }
-  } 
-  else {
-    return `${prefix || ''}${field.type}${suffix || ''}`
   }
+
+  return `${prefix || ''}${field.type}${suffix || ''}`
 }
 
 export const isRelational = (field: DMMF.Field, enums: string): boolean => {
   return !PRISMA_TYPES.includes(field.type) && !enums.includes(field.type)
 }
 
-export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string) => {
+export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
 
   if (field.isId && field.type !== 'Int') {
     let find = toImport.find(i => i.newImport === 'ID') 
