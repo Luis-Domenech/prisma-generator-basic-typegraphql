@@ -7,7 +7,7 @@ export const genModels = (models: DMMF.Model[], fieldModifiers: FieldModifier[],
       const fields = genFields(model, model.fields, fieldModifiers, fieldOptionals, enums, config, imports)    
 
     return (
-`@ObjectType()
+`@ObjectType("${model.name}", { isAbstract: true })
 export class ${model.name} {
 ${fields}
 }
