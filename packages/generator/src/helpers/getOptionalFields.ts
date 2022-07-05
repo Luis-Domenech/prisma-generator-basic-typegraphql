@@ -1,4 +1,6 @@
+import { OPTIONAL_IDENTIFIERS } from "../constants";
 import { FieldOptional, InitializedConfig } from "../types"
+import { contains } from "../utils/contains";
 
 // Get modifers from schema, meaning get stuff like //@omit
 export const getFieldsOptional = (dataModel: string): FieldOptional[] => {
@@ -14,7 +16,7 @@ export const getFieldsOptional = (dataModel: string): FieldOptional[] => {
 
     const fieldName = line.split(' ').filter((e) => e !== '').map((e) => e.replace('\r', ''))[0]
 
-    if (line.includes("?") || line.includes("@id") || line.includes("[]")) {
+    if (contains(line, OPTIONAL_IDENTIFIERS)) {
       fieldOptional.push({
         fieldName,
         modelName: currentCodeBlock.name,

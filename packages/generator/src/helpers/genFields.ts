@@ -3,21 +3,21 @@ import { INDENT_SPACES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
 import { getGraphQLType, getTypescriptType, isRelational } from '../utils/getType'
+import { logger } from '../utils/logger'
 
-export const genFields = (modelName: string, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
+export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
   
   let toImport: {fromImport: string, newImport: string}[] = []
 
   let fieldsString = fields.map(field => {
-    let fieldModifier: FieldModifier | undefined = fieldModifiers.find((e: FieldModifier) => e.fieldName === field.name && e.modelName === modelName)
-    let fieldOptional: FieldOptional | undefined = fieldsOptional.find((e: FieldOptional) => e.fieldName === field.name && e.modelName === modelName)
+    let fieldModifier: FieldModifier | undefined = fieldModifiers.find((e: FieldModifier) => e.fieldName === field.name && e.modelName === model.name)
+    let fieldOptional: FieldOptional | undefined = fieldsOptional.find((e: FieldOptional) => e.fieldName === field.name && e.modelName === model.name)
     let isOptional = fieldOptional ? fieldOptional.optional : false
 
-    if (!fieldModifier) fieldModifier = {fieldName: field.name, modelName: modelName, hide: false, nullable: false}
+    if (!fieldModifier) fieldModifier = {fieldName: field.name, modelName: model.name, hide: false, nullable: false}
 
     const hideRelations = config.hideRelations
     const isRelation = isRelational(field, enums)
-
 
     let fieldName = field.name
     fieldName += isOptional ? '?' : '!'
@@ -30,7 +30,7 @@ export const genFields = (modelName: string, fields: DMMF.Field[], fieldModifier
     let fieldGraphQLType = getGraphQLType(field, toImport)
     if (field.isList) fieldGraphQLType = `[${fieldGraphQLType}]`
     
-    const nullable = field.isRequired ? (fieldModifier.nullable ? true : false) : true
+    const nullable = isOptional ? true : (fieldModifier.nullable ? true : false)
 
     const decorator = `${" ".repeat(INDENT_SPACES)}@Field(() => ${fieldGraphQLType}, { nullable: ${nullable} })\n`
 
@@ -41,7 +41,7 @@ export const genFields = (modelName: string, fields: DMMF.Field[], fieldModifier
     const fieldText = ` ${" ".repeat(INDENT_SPACES)}${fieldName}: ${fieldType}`
     
 
-    return (`${decoratorText}${fieldText}`)
+    return (`${decoratorText}${fieldText}\n`)
   }).join("\n")
 
   // Now we update our imports and install packages if needed

@@ -45,4 +45,10 @@ export const NULLABLE_MODIFERS = [
   '@TypeGraphQL.omit (nullable:true)',
 ]
 
+export const OPTIONAL_IDENTIFIERS = [
+  '?',
+  '@id',
+  '[]',
+]
+
 export const INDENT_SPACES = 2
