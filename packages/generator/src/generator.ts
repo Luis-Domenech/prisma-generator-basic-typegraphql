@@ -33,8 +33,6 @@ generatorHandler({
 
     const fieldModifiers = getFieldModifiers(options.datamodel, config)
     const fieldsOptional = getFieldsOptional(options.datamodel)
-    logger.info(fieldModifiers[0])
-    logger.info(fieldsOptional[0])
     const content = await genFileContent(options.dmmf, fieldModifiers, fieldsOptional, config)
     
     await writeFileSafely(config.outputDir, config.outputName, content)
