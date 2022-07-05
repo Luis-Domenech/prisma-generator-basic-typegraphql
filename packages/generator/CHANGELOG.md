@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.5...v1.0.6) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed spacing issue and optional field issue ([4ab6f1f](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/4ab6f1f5bb748c754507adcf6c335c599122d610))
+
 ## [1.0.5](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.4...v1.0.5) (2022-07-05)
 
 
