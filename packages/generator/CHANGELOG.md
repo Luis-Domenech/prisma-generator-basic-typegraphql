@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.6...v1.0.7) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** All relation types are now optional by default ([4715caf](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/4715cafb6463b1b5204b177946c1b5ddfa1b0b9e))
+
 ## [1.0.6](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.5...v1.0.6) (2022-07-05)
 
 
