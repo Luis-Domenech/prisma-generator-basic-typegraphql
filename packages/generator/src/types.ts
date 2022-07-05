@@ -23,6 +23,8 @@ export interface ExtendedConfig extends Dictionary<string> {
   outputDir: string
   skipVerCheck: string
   installDeps: string
+  enumAsType: string
+  optionalRelations: string
 }
 
 export interface InitializedConfig {
@@ -32,6 +34,8 @@ export interface InitializedConfig {
   wipeOutput: boolean
   skipVerCheck: boolean
   installDeps: boolean
+  enumAsType: boolean
+  optionalRelations: boolean
   outputName: string
   outputDir: string
 }

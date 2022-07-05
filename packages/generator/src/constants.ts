@@ -51,4 +51,6 @@ export const OPTIONAL_IDENTIFIERS = [
   '[]',
 ]
 
+export const ENUM_TYPE_SUFFIX = '_Enum' //Appended after every enum if enumAsType is true
+
 export const INDENT_SPACES = 2

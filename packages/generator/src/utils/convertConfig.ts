@@ -15,6 +15,8 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
                 (config.outputDir ? config.outputDir : DEFAULT_OUTPUT_DIR),
     outputName: config.outputName ? config.outputName : DEFAULT_FILE_NAME,
     skipVerCheck: config.skipVerCheck == 'true',
-    installDeps: config.installDeps == 'true'
+    installDeps: config.installDeps == 'true',
+    enumAsType: config.enumAsType == 'true',
+    optionalRelations: config.optionalRelations == 'false',
   }
 }

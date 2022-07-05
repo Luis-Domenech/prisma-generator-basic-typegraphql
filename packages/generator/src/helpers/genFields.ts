@@ -19,7 +19,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     const isRelation = isRelational(field, enums)
 
     let fieldName = field.name
-    fieldName += isOptional ? '?' : (isRelation ? '?' : '!')
+    fieldName += isOptional ? '?' : (isRelation ? config.optionalRelations ? '?' : '!' : '!')
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)

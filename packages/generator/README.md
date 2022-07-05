@@ -26,16 +26,18 @@ generator basic_typegraphql {
 
 ## Config Options
 The generator can be configured with the following options:
-| Option            | Value                       | Default                                             | Comment                                                                                       |
-| ----------------- |:---------------------------:|:---------------------------------------------------:| ---------------------------------------------------------------------------------------------:|
-| output            | ``` string ```              | ``` ../src/generated/type-graphql ```               | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
-| outputName        | ``` string ```              | ``` type-graphql.ts ```                             | Name of the file to generate.                                                                 |
-| wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                          |
-| strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.              |
-| installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                 |
-| useYarn           | ``` boolean ```             | ``` false ```                                       | Sets whether to use yarn or npm for installing packages if installDeps is true.               |
-| hideRelations     | ``` boolean ```             | ``` false ```                                       | By default, all fields are emitted. If set to true, this will omit all relation types.        |
-| skipVerCheck      | ``` boolean ```             | ``` false ```                                       | If true, generator will run without checking installed prisma version.                        |
+| Option            | Value                       | Default                                             | Comment                                                                                            |
+| ----------------- |:---------------------------:|:---------------------------------------------------:|:-------------------------------------------------------------------------------------------------- |
+| output            | ``` string ```              | ``` ../src/generated/type-graphql ```               | Folder where generated file will be stored. This folder is auto created if it doesn't exists.      |
+| outputName        | ``` string ```              | ``` type-graphql.ts ```                             | Name of the file to generate.                                                                      |
+| wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                               |
+| strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.                   |
+| installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                      |
+| useYarn           | ``` boolean ```             | ``` false ```                                       | Sets whether to use yarn or npm for installing packages if installDeps is true.                    |
+| hideRelations     | ``` boolean ```             | ``` false ```                                       | By default, all fields are emitted. If set to true, this will omit all relation types.             |
+| skipVerCheck      | ``` boolean ```             | ``` false ```                                       | If true, generator will run without checking installed prisma version.                             |
+| enumAsType        | ``` boolean ```             | ``` false ```                                       | If true, generator will make all enums types which might help with prisma enums which are consts. Generated types will be named same as enum and actual enum will be named the same with `_Enum` attached at the end. |
+| optionalRelations | ``` boolean ```             | ``` true ```                                        | If true, generator will make all relation fields optional.                                         |
 
 ## Modifiers
 If you want to modify a field, you can write a comment and add the modifiers above the field or after the field. If the strictModifiers is true, then modifiers can only be typed above the field and must have '///' so wwe know it is a modifier and not a comment.

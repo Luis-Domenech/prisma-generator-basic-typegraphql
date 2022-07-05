@@ -3,7 +3,7 @@ import { AUTO_GENERATED_COMMENT } from "../constants"
 import { FieldModifier, FieldOptional, InitializedConfig } from "../types"
 import { addImport } from "../utils/addImport"
 import { installPackage } from "../utils/installPackages"
-import { genEnum } from "./genEnum"
+import { genEnums } from "./genEnums"
 import { genImports } from "./genImports"
 import { genModels } from "./genModels"
 
@@ -14,7 +14,7 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
   addImport('Field', 'type-graphql', imports)
 
   
-  const enums = genEnum(dmmf.datamodel.enums, imports)
+  const enums = genEnums(dmmf.datamodel.enums, imports, config)
 
   const models = genModels(dmmf.datamodel.models, fieldModifiers, fieldsOptional, enums, config, imports)
 
