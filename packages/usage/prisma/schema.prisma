@@ -10,7 +10,7 @@ generator basic_typegraphql {
   outputName      = "index.ts"
   wipeOutput      = true
   useYarn         = true
-  optionalRelations = false
+  optionalRelations = true
   strictModifiers = true
   skipVerCheck    = false
   installDeps     = true

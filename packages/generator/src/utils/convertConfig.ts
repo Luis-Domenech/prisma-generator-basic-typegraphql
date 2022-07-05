@@ -19,6 +19,6 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     enumAsType: config.enumAsType == 'true',
     addNull: config.addNull == 'true',
     addUndefined: config.addUndefined == 'true',
-    optionalRelations: config.optionalRelations == 'false',
+    optionalRelations: config.optionalRelations == 'true' ? true : (config.optionalRelations == 'false' ? false : false),
   }
 }
