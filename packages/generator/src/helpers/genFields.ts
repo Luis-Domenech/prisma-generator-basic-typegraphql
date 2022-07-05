@@ -41,7 +41,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     let fieldGraphQLType = getGraphQLType(field, toImport) + fieldGraphQLTypeEnumExtension
     if (field.isList) fieldGraphQLType = `[${fieldGraphQLType}]`
     
-    const nullable = isOptional ? true : (fieldModifier.nullable ? true : false)
+    const nullable = fieldName.includes("?") ? true : (fieldModifier.nullable ? true : false)
 
     const decorator = `${" ".repeat(INDENT_SPACES)}@Field(() => ${fieldGraphQLType}, { nullable: ${nullable} })\n`
 
