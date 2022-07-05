@@ -16,7 +16,24 @@ export const genEnums = (enums: DMMF.DatamodelEnum[], imports: string[], config:
 
     const enumAsType = `export type ${name} = keyof typeof ${name}${ENUM_TYPE_SUFFIX}` 
 
-    if (config.enumAsType) {
+    const enumAsConst = values.map(({ name }) => `${" ".repeat(INDENT_SPACES)}${name}: '${name}'`).join(',\n')
+    const enumAsConstType = `export type ${name} = typeof ${name}[keyof typeof ${name}]`
+    
+    if (config.enumAsConst) {
+      return (
+`export const ${name} = {
+${enumAsConst}
+} as const
+
+${enumAsConstType}
+
+registerEnumType(${name}, {
+${" ".repeat(INDENT_SPACES)}name: '${name}'
+})
+`
+      )
+    }
+    else if (config.enumAsType) {
       return (
 `export enum ${name}${ENUM_TYPE_SUFFIX} {
 ${enumValues}

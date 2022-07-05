@@ -2,6 +2,7 @@ import { DMMF } from '@prisma/generator-helper'
 import { ENUM_TYPE_SUFFIX, INDENT_SPACES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
+import { isEnum } from '../utils/isEnum'
 import { logger } from '../utils/logger'
 import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
@@ -18,13 +19,9 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
     const hideRelations = config.hideRelations
     const optionalRelations = config.optionalRelations
-    const isRelation = isRelational(field, enums)
+    const isRelation = isRelational(field, enums, config)
     const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
-    let isEnum = false
-    
-    if (actualEnums) {
-      actualEnums.map(e => { if (e.replace(ENUM_TYPE_SUFFIX, "") === field.type) isEnum = true})
-    } 
+    let typeIsEnum = isEnum(field, enums, config)
 
 
 
@@ -33,7 +30,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)
-    const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
+    const fieldGraphQLTypeEnumExtension = config.enumAsType && typeIsEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
 
     if (fieldName.includes("?") && config.addNull) fieldType += ' | null'
