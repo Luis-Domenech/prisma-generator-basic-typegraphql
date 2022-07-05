@@ -1,5 +1,5 @@
 import { OPTIONAL_IDENTIFIERS } from "../constants";
-import { FieldOptional, InitializedConfig } from "../types"
+import { FieldOptional } from "../types"
 import { contains } from "../utils/contains";
 
 // Get modifers from schema, meaning get stuff like //@omit

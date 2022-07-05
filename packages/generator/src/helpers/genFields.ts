@@ -3,7 +3,6 @@ import { INDENT_SPACES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
 import { getGraphQLType, getTypescriptType, isRelational } from '../utils/getType'
-import { logger } from '../utils/logger'
 
 export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
   
@@ -20,7 +19,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     const isRelation = isRelational(field, enums)
 
     let fieldName = field.name
-    fieldName += isOptional ? '?' : '!'
+    fieldName += isOptional ? '?' : (isRelation ? '?' : '!')
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)
