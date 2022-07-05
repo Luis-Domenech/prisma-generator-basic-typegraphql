@@ -1,3 +1,10 @@
+## [1.0.21](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.20...v1.0.21) (2022-07-05)
+
+
+### Bug Fixes
+
+* **genearator:** Fixed logic for setting nullable ([808a677](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/808a6771fde1584d53be1c13f388d11a31e5807d))
+
 ## [1.0.20](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.19...v1.0.20) (2022-07-05)
 
 
