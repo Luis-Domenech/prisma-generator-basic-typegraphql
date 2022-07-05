@@ -1,3 +1,11 @@
+## [1.0.5](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.4...v1.0.5) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Fixed required field logic ([ad59a19](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/ad59a195a8c21006acf71f8a17ea6ab0a66a7d41))
+* **generator:** Removed debugging console logs ([ade8a49](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/ade8a491fd7780e252d372df695859fa42852d2b))
+
 ## [1.0.4](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.3...v1.0.4) (2022-07-05)
 
 
