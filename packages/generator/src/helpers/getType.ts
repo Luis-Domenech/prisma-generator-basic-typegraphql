@@ -3,17 +3,25 @@ import { PRISMA_TYPES } from "../constants"
 
 export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
   if (PRISMA_TYPES.includes(field.type)) {
+    let temp;
     switch (field.type) {
       case 'String': return 'string'
       case 'Boolean': return 'boolean'
       case 'Int': return 'number'
       case 'BigInt': return 'number'
-      case 'Decimal': return 'number'
+      case 'Decimal':
+        temp = toImport.find(i => i.newImport === 'Prisma') 
+        if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
+        temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
+        if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
+        temp = toImport.find(i => i.newImport === 'Kind') 
+        if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
+        return 'Prisma.Decimal'
       case 'Float': return 'number'
       case 'DateTime': return 'Date'
       case 'Json':
-        let find = toImport.find(i => i.newImport === 'Prisma.JsonValue') 
-        if (!find) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
+        temp = toImport.find(i => i.newImport === 'Prisma') 
+        if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
         return 'Prisma.JsonValue'
       case 'Bytes': return 'Buffer'
     }
@@ -41,12 +49,10 @@ export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string,
   else if (field.type === 'Float') { 
     let find = toImport.find(i => i.newImport === 'Float') 
     if (!find) toImport.push({newImport: 'Float', fromImport: 'type-graphql'})
-    return 'Float' 
+    return 'Float'
   }
-  else if (field.type === 'Decimal') { 
-    let find = toImport.find(i => i.newImport === 'Float') 
-    if (!find) toImport.push({newImport: 'Float', fromImport: 'type-graphql'})
-    return 'Float' 
+  else if (field.type === 'Decimal') {
+    return 'DecimalScalar' 
   }
   else if (field.type === 'BigInt') {
     let find = toImport.find(i => i.newImport === 'GraphQLBigInt') 

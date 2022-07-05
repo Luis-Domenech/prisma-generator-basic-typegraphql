@@ -1,5 +1,11 @@
+export const getFromImport = (i: string) => {
+  let fromImport = i.match(/'(.*?)'/g)
+  return fromImport ? fromImport[0].replace(/(\')*/gm, '') : ''
+}
+
 export const addImport = (newImport: string, fromImport: string, imports: string[]) => {
-  let find = imports.find(i => i.includes(fromImport))
+
+  let find = imports.find(i => getFromImport(i) === fromImport)
 
   if (find) {
     let index = imports.indexOf(find)
@@ -13,7 +19,7 @@ export const addImport = (newImport: string, fromImport: string, imports: string
       if (insideImports) currentImports.push(s)
       
       if (s === "}") {
-        const find = currentImports.find(s => s.includes(newImport))
+        const find = currentImports.find(s2 => s2.replace(",", "") === newImport)
         if (!find) newImportString += newImportString.charAt(newImportString.length - 1) === ',' ? ` ${newImport} ${s}` : `, ${newImport} ${s}`
         else newImportString += newImportString ? ` ${s}` : s
 

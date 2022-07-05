@@ -2,7 +2,7 @@ import { DMMF } from '@prisma/generator-helper'
 import { ENUM_TYPE_SUFFIX, INDENT_SPACES } from '../constants'
 import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
-import { getGraphQLType, getTypescriptType, isRelational } from '../utils/getType'
+import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
 export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
   

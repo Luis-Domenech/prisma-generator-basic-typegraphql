@@ -20,7 +20,8 @@ To use the generator, add the following to your schema.prisma file:
 ```typescript
 generator basic_typegraphql {
   provider        = "prisma-generator-basic-typegraphql"
-  output          = "../generated/type-graphql"
+  output          = "../generated/type-graphql-types"
+  outputName      = "types.ts"
 }
 ```
 
@@ -28,8 +29,8 @@ generator basic_typegraphql {
 The generator can be configured with the following options:
 | Option            | Value                       | Default                                             | Comment                                                                                            |
 | ----------------- |:---------------------------:|:---------------------------------------------------:|:-------------------------------------------------------------------------------------------------- |
-| output            | ``` string ```              | ``` ../src/generated/type-graphql ```               | Folder where generated file will be stored. This folder is auto created if it doesn't exists.      |
-| outputName        | ``` string ```              | ``` type-graphql.ts ```                             | Name of the file to generate.                                                                      |
+| output            | ``` string ```              | ``` ../src/generated/type-graphql-types ```         | Folder where generated file will be stored. This folder is auto created if it doesn't exists.      |
+| outputName        | ``` string ```              | ``` index.ts ```                                    | Name of the file to generate.                                                                      |
 | wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                               |
 | strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.                   |
 | installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                      |

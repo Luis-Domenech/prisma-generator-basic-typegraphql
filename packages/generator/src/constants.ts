@@ -4,8 +4,8 @@ export const AUTO_GENERATED_COMMENT = `//// ------------------------------------
 
 export const PACKAGE_NAME = 'prisma-generator-basic-typegraphql'
 export const GENERATOR_NAME = 'Basic TypeGraphQL Generator'
-export const DEFAULT_FILE_NAME = 'type-graphql.ts'
-export const DEFAULT_OUTPUT_DIR = '../src/generated/type-graphql'
+export const DEFAULT_FILE_NAME = 'index.ts'
+export const DEFAULT_OUTPUT_DIR = '../src/generated/type-graphql-types'
 export const PRISMA_TYPES = [
   'BigInt',
   'Boolean',
@@ -49,6 +49,10 @@ export const OPTIONAL_IDENTIFIERS = [
   '?',
   '@id',
   '[]',
+]
+
+export const SCALARS = [
+  'DecimalScalar'
 ]
 
 export const ENUM_TYPE_SUFFIX = '_Enum' //Appended after every enum if enumAsType is true
