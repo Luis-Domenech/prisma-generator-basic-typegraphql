@@ -16,6 +16,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     if (!fieldModifier) fieldModifier = {fieldName: field.name, modelName: model.name, hide: false, nullable: false}
 
     const hideRelations = config.hideRelations
+    const optionalRelations = config.optionalRelations
     const isRelation = isRelational(field, enums)
     const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
     let isEnum = false
@@ -26,7 +27,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
 
 
     let fieldName = field.name
-    fieldName += isOptional ? '?' : (isRelation ? config.optionalRelations ? '?' : '!' : '!')
+    fieldName += isOptional ? '?' : (isRelation ? optionalRelations ? '?' : '!' : '!')
 
     // TS Type
     let fieldType = getTypescriptType(field, toImport)

@@ -1,5 +1,5 @@
 import { DMMF } from "@prisma/generator-helper"
-import { PRISMA_TYPES } from "../constants"
+import { ENUM_TYPE_SUFFIX, PRISMA_TYPES } from "../constants"
 
 export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
   if (PRISMA_TYPES.includes(field.type)) {
@@ -31,7 +31,16 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
 }
 
 export const isRelational = (field: DMMF.Field, enums: string): boolean => {
-  return !PRISMA_TYPES.includes(field.type) && !enums.includes(field.type)
+  const actualEnums = enums.match(/(?<=enum\s)(\w)+/gm)
+  let isEnum = false
+
+  if (actualEnums) {
+    actualEnums.map(e => { 
+      if (e.replace(ENUM_TYPE_SUFFIX, "") === field.type) isEnum = true
+    })
+  }
+
+  return PRISMA_TYPES.indexOf(field.type) === -1 && !isEnum
 }
 
 export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
