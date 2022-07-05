@@ -1,3 +1,10 @@
+## [1.0.15](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.14...v1.0.15) (2022-07-05)
+
+
+### Bug Fixes
+
+* **generator:** Made object types more explicit ([8208499](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/8208499bbce0fc7e572befe8428822fbd2b39329))
+
 ## [1.0.14](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.13...v1.0.14) (2022-07-05)
 
 
