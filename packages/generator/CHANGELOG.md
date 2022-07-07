@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.22...v1.1.0) (2022-07-07)
+
+
+### Features
+
+* **generator:** Fixed await issue ([725327a](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/725327ad36decdaa65320abf202ef28d623c993f))
+
 ## [1.0.22](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.0.21...v1.0.22) (2022-07-07)
 
 
