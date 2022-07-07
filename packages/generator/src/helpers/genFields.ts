@@ -49,7 +49,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
                         ( hideRelations ? fieldModifier.override ? decorator : '' : fieldModifier.hide ? '' : decorator) : 
                         fieldModifier.hide ? '' : decorator
 
-    const fieldText = ` ${" ".repeat(INDENT_SPACES)}${fieldName}: ${fieldType}`
+    const fieldText = `${" ".repeat(INDENT_SPACES)}${fieldName}: ${fieldType}`
     
     return (`${decoratorText}${fieldText}\n`)
   }).join("\n")
