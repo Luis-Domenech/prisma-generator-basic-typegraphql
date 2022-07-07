@@ -23,7 +23,7 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
   const scalars = genScalars(models)
 
   if (config.installDeps) {
-    Promise.all(imports.map(async i => {
+    await Promise.all(imports.map(async i => {
       await installPackage(config.useYarn, getFromImport(i) , true)
     }))
   }
