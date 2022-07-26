@@ -10,6 +10,6 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "test": "yarn && cd ./packages/generator && yarn && yarn build && cd ../usage && yarn && yarn gen"
+    "test": "yarn && cd ./packages/generator && yarn && yarn build && cd ../usage && yarn gen"
   }
 }

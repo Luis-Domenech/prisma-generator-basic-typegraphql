@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "license": "MIT",
   "scripts": {
-    "gen": "prisma generate"
+    "gen": "yarn upgrade prisma-generator-basic-typegraphql && prisma generate"
   },
   "dependencies": {
     "@prisma/client": "4"
