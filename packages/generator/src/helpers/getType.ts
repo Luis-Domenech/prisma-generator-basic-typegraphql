@@ -10,7 +10,13 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
       case 'String': return 'string'
       case 'Boolean': return 'boolean'
       case 'Int': return 'number'
-      case 'BigInt': return 'number'
+      case 'BigInt': 
+        temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
+        if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
+        temp = toImport.find(i => i.newImport === 'Kind') 
+        if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
+
+        return 'bigint'
       case 'Decimal':
         temp = toImport.find(i => i.newImport === 'Prisma') 
         if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
@@ -22,9 +28,9 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
       case 'Float': return 'number'
       case 'DateTime': return 'Date'
       case 'Json':
-        temp = toImport.find(i => i.newImport === 'Prisma') 
-        if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
-        return 'Prisma.JsonValue'
+        // temp = toImport.find(i => i.newImport === 'Prisma') 
+        // if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
+        return 'JSON'
       case 'Bytes': return 'Buffer'
     }
   }
@@ -56,12 +62,13 @@ export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string,
     return 'Float'
   }
   else if (field.type === 'Decimal') {
-    return 'DecimalScalar' 
+    return 'DecimalScalar'
   }
   else if (field.type === 'BigInt') {
-    let find = toImport.find(i => i.newImport === 'GraphQLBigInt') 
-    if (!find) toImport.push({newImport: 'GraphQLBigInt', fromImport: 'graphql-scalars'})
-    return 'GraphQLBigInt'
+    // let find = toImport.find(i => i.newImport === 'GraphQLBigInt') 
+    // if (!find) toImport.push({newImport: 'GraphQLBigInt', fromImport: 'graphql-scalars'})
+    // return 'GraphQLBigInt'
+    return 'BigIntScalar'
   }
   else if (field.type === 'Json') {
     let find = toImport.find(i => i.newImport === 'GraphQLJSONObject') 

@@ -34,5 +34,5 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
     scalars,
     enums,
     models,
-  ].join('\n')
+  ].filter(Boolean).join('\n')
 }
