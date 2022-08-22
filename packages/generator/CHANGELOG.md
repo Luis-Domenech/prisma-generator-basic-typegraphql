@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.1...v1.1.2) (2022-08-22)
+
+
+### Bug Fixes
+
+* **scalar:** Upgraded DecimalScalar implementation ([b6f6431](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/b6f64318ac1cf248603907f2311ea4ca9cbc96ae))
+
 ## [1.1.1](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.0...v1.1.1) (2022-07-26)
 
 
