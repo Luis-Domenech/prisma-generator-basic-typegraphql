@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.3...v1.1.4) (2022-08-22)
+
+
+### Bug Fixes
+
+* **scalars:** Added bigint scalar ([ebeca9d](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/ebeca9dd25bb389585753b4b18273f516b545771))
+
 ## [1.1.3](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.2...v1.1.3) (2022-08-22)
 
 
