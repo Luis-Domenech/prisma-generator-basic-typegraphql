@@ -7,7 +7,10 @@ export const genModels = (models: DMMF.Model[], fieldModifiers: FieldModifier[],
   return models.map((model) => {
     const fields = genFields(model, model.fields, fieldModifiers, fieldOptionals, enums, config, imports)    
 
-    const typename_field = config.addTypenameField ? `${" ".repeat(INDENT_SPACES)}__typename: "${model.name}"` : ''
+    let typename_field = config.addTypenameField ? `${" ".repeat(INDENT_SPACES)}__typename?: "${model.name}"\n` : ''
+
+    // if (config.addNull) typename_field += ' | null'
+    // if (config.addUndefined) typename_field += ' | undefined'
 
     return (
       [
