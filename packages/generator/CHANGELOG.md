@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.5...v1.1.6) (2022-08-30)
+
+
+### Bug Fixes
+
+* **package:** Made __typename fields optional ([61b23e0](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/61b23e0114ce6c3b3f6b60d22e38e4dc6ae379ee))
+
 ## [1.1.5](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.4...v1.1.5) (2022-08-30)
 
 
