@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.4...v1.1.5) (2022-08-30)
+
+
+### Bug Fixes
+
+* **config:** Added new addTypenameField config option ([f254665](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/f2546659fe399b1ca8352f9c391477af9ee269d9))
+
 ## [1.1.4](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.3...v1.1.4) (2022-08-22)
 
 
