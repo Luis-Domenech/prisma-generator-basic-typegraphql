@@ -45,7 +45,7 @@ export const isRelational = (field: DMMF.Field, enums: string, config: Initializ
 }
 
 export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
-
+  // TODO: Update these to what lfd-graphql-client has
   if (field.isId && field.type !== 'Int') {
     let find = toImport.find(i => i.newImport === 'ID') 
     if (!find) toImport.push({newImport: 'ID', fromImport: 'type-graphql'})

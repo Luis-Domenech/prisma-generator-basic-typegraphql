@@ -18,6 +18,10 @@ or
 
 ```npm i -D prisma-generator-basic-typegraphql```
 
+or
+
+```pnpm add -D prisma-generator-basic-typegraphql```
+
 ## Usage 
 To use the generator, add the following to your schema.prisma file:
 ```typescript
@@ -45,6 +49,7 @@ The generator can be configured with the following options:
 | optionalRelations | ``` boolean ```             | ``` true ```                                        | If true, generator will make all relation fields optional.                                         |
 | addNull           | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| null` to TS type of optional fields.                                |
 | addUndefined      | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| undefined` to TS type of optional fields.                           |
+| addTypenameField  | ``` boolean ```             | ``` false ```                                       | If true, generator will add a `__typename` field to all TS types.                           |
 
 
 ## Modifiers

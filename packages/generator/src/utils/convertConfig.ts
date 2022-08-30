@@ -21,5 +21,6 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     addNull: config.addNull == 'true',
     addUndefined: config.addUndefined == 'true',
     optionalRelations: config.optionalRelations == 'true' ? true : (config.optionalRelations == 'false' ? false : false),
+    addTypenameField: config.addTypenameField == 'true'
   }
 }

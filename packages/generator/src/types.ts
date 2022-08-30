@@ -28,6 +28,7 @@ export interface ExtendedConfig extends Dictionary<string> {
   addNull: string
   addUndefined: string
   enumAsConst: string
+  addTypenameField: string
 }
 
 export interface InitializedConfig {
@@ -44,4 +45,5 @@ export interface InitializedConfig {
   addUndefined: boolean
   outputName: string
   outputDir: string
+  addTypenameField: boolean
 }
