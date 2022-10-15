@@ -17,7 +17,7 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     skipVerCheck: config.skipVerCheck == 'true',
     installDeps: config.installDeps == 'true',
     enumAsType: config.enumAsType == 'true',
-    enumAsConst: config.enumAsType == 'true',
+    enumAsConst: config.enumAsConst == 'true',
     addNull: config.addNull == 'true',
     addUndefined: config.addUndefined == 'true',
     optionalRelations: config.optionalRelations == 'true' ? true : (config.optionalRelations == 'false' ? false : false),
