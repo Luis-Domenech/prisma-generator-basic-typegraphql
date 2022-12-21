@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "module": "CommonJS",
+      "moduleResolution": "NodeNext",
+      "target": "ESNext",
+      "experimentalDecorators": true
+    },
+    "ts-node": {
+      "swc": true,
+      "compilerOptions": {
+            "esModuleInterop": true,
+            "allowSyntheticDefaultImports": true,
+            "module": "CommonJS",
+            "moduleResolution": "NodeNext",
+            "target": "ESNext",
+            "experimentalDecorators": true
+        }
+    }
+}

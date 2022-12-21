@@ -5,18 +5,25 @@
   "main": "src/app.js",
   "license": "MIT",
   "scripts": {
-    "gen": "yarn upgrade prisma-generator-basic-typegraphql && prisma generate"
+    "upgrade": "yarn upgrade my-generator",
+    "update": "rimraf ./node_modules/prisma-generator-basic-typegraphql && yarn",
+    "gen-prisma": "prisma generate",
+    "gen": "yarn update && yarn gen-prisma"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   },
   "dependencies": {
-    "@prisma/client": "4"
+    "@prisma/client": "^4.8.0"
   },
   "devDependencies": {
-    "@prisma/client": "^4.0.0",
     "@types/node": "16.11.7",
     "graphql": "^16.5.0",
     "graphql-scalars": "^1.17.0",
-    "prisma": "4",
+    "prisma": "^4.8.0",
+    "prisma-dbml-generator": "^0.10.0",
     "prisma-generator-basic-typegraphql": "file:../generator",
+    "rimraf": "^3.0.2",
     "type-graphql": "^1.1.1",
     "typescript": "4.5.2"
   }

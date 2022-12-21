@@ -50,6 +50,7 @@ The generator can be configured with the following options:
 | addNull           | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| null` to TS type of optional fields.                                |
 | addUndefined      | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| undefined` to TS type of optional fields.                           |
 | addTypenameField  | ``` boolean ```             | ``` false ```                                       | If true, generator will add a `__typename` field to all TS types.                           |
+| importAsESM  | ``` boolean ```             | ``` false ```                                       | If true, all imports will be changed to work under ESM rules.                           |
 
 
 ## Modifiers
@@ -73,3 +74,4 @@ Modifiers:
 1. Prisma's Unsupported type is not passed to the prisma generator, as in, in doess not get parsed at all, so I don't deal with that type in this generator.
 2. Since the relevant docs for creating a prisma generator are not easy to understand, I took inspiration from multiple generators, inlcuding [create-prisma-generator](https://github.com/YassinEldeeb/create-prisma-generator), [typegraphql-prisma](https://github.com/MichalLytek/typegraphql-prisma) and [prisma-dbml-generator](https://github.com/notiz-dev/prisma-dbml-generator)
 3. The image in this readme was sourced from [typegraphql-prisma](https://github.com/MichalLytek/typegraphql-prisma)
+****

@@ -29,6 +29,7 @@ export interface ExtendedConfig extends Dictionary<string> {
   addUndefined: string
   enumAsConst: string
   addTypenameField: string
+  importAsESM: string
 }
 
 export interface InitializedConfig {
@@ -46,4 +47,10 @@ export interface InitializedConfig {
   outputName: string
   outputDir: string
   addTypenameField: boolean
+  importAsESM: boolean
+}
+
+export type FileInfo = {
+  path: string
+  imports: string[]
 }

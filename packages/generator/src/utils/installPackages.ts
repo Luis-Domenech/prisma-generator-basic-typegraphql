@@ -17,7 +17,9 @@ export const installPackage = async (useYarn: boolean, pkgName: string, dev: boo
   
   let child = spawnSync(`${packageManager} ${pkgName}`, [], {
     shell: true,
-    stdio: 'inherit'
+    // stdio: 'inherit',
+    stdio: 'pipe',
+    encoding: 'utf-8'
   })
 
   return true

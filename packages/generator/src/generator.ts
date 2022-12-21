@@ -33,13 +33,12 @@ generatorHandler({
 
     const fieldModifiers = getFieldModifiers(options.datamodel, config)
     const fieldsOptional = getFieldsOptional(options.datamodel)
-    const content = await genFileContent(options.dmmf, fieldModifiers, fieldsOptional, config)
+
+    await genFileContent(options.dmmf, fieldModifiers, fieldsOptional, config)
     
-    logger.info(`${GENERATOR_NAME}: Saving File`)
-
-    await writeFileSafely(config.outputDir, config.outputName, content)
-
-    logger.info(`${GENERATOR_NAME}: File Saved -> ${path.join(config.outputDir, config.outputName)}`)
+    // logger.info(`${GENERATOR_NAME}: Saving File`)
+    // await writeFileSafely(config.outputDir, config.outputName, content)
+    // logger.info(`${GENERATOR_NAME}: File Saved -> ${path.join(config.outputDir, config.outputName)}`)
 
     logger.info(`${GENERATOR_NAME}: Done`)
 

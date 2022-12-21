@@ -1,14 +1,14 @@
 import { DMMF } from '@prisma/generator-helper'
 import { ENUM_TYPE_SUFFIX, INDENT_SPACES, PRISMA_TYPES } from '../constants'
-import { FieldModifier, FieldOptional, InitializedConfig } from '../types'
+import { FieldModifier, FieldOptional, FileInfo, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
 import { isAnEnum } from '../utils/isEnum'
 import { logger } from '../utils/logger'
 import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
-export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string, config: InitializedConfig, imports: string[]) => {
+export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig) => {
   
-  let toImport: {fromImport: string, newImport: string}[] = []
+  // let toImport: {fromImport: string, newImport: string}[] = []
 
   let fieldsString = fields.map(field => {
     let fieldModifier: FieldModifier | undefined = fieldModifiers.find((e: FieldModifier) => e.fieldName === field.name && e.modelName === model.name)
@@ -30,7 +30,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     fieldName += isOptional ? '?' : (isRelation ? optionalRelations ? '?' : '!' : '!')
 
     // TS Type
-    let fieldType = getTypescriptType(field, toImport)
+    let fieldType = getTypescriptType(model.name, field, file_info_map, config)
     const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
 
@@ -38,7 +38,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     if (fieldName.includes("?") && config.addUndefined) fieldType += ' | undefined'
 
     // GraphQL Type
-    let fieldGraphQLType = getGraphQLType(field, toImport) + fieldGraphQLTypeEnumExtension
+    let fieldGraphQLType = getGraphQLType(model.name, field, file_info_map, config, '', fieldGraphQLTypeEnumExtension)
     if (field.isList) fieldGraphQLType = `[${fieldGraphQLType}]`
     
     const nullable = fieldName.includes("?") ? true : (fieldModifier.nullable ? true : false)
@@ -55,7 +55,7 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
   }).join("\n")
 
   // Now we update our imports and install packages if needed
-  toImport.map(i => addImport(i.newImport, i.fromImport, imports))
+  // toImport.map(i => addImport(i.newImport, i.fromImport, imports))
 
   return fieldsString
 }

@@ -1,29 +1,46 @@
 import { DMMF } from "@prisma/generator-helper"
-import { ENUM_TYPE_SUFFIX, PRISMA_TYPES } from "../constants"
-import { InitializedConfig } from "../types";
+import path from "path";
+import { ENUM_TYPE_SUFFIX, MODELS_DIR, PRISMA_TYPES } from "../constants"
+import { FileInfo, InitializedConfig } from "../types";
+import { addImport } from "../utils/addImport";
 import { isAnEnum } from "../utils/isEnum";
 
-export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
+export const getTypescriptType = (model_name: string, field: DMMF.Field, file_info_map: Map<string, FileInfo>, config: InitializedConfig, prefix?: string, suffix?: string): string => {
+  const file_info = file_info_map.get(model_name)
+
   if (PRISMA_TYPES.includes(field.type)) {
-    let temp;
     switch (field.type) {
       case 'String': return 'string'
       case 'Boolean': return 'boolean'
       case 'Int': return 'number'
       case 'BigInt': 
-        temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
-        if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
-        temp = toImport.find(i => i.newImport === 'Kind') 
-        if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
-
+        // temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
+        // if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
+        // temp = toImport.find(i => i.newImport === 'Kind') 
+        // if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
+    
         return 'bigint'
       case 'Decimal':
-        temp = toImport.find(i => i.newImport === 'Prisma') 
-        if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
-        temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
-        if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
-        temp = toImport.find(i => i.newImport === 'Kind') 
-        if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
+        // temp = toImport.find(i => i.newImport === 'Prisma') 
+        // if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
+        // temp = toImport.find(i => i.newImport === 'GraphQLScalarType') 
+        // if (!temp) toImport.push({newImport: 'GraphQLScalarType', fromImport: 'graphql'})
+        // temp = toImport.find(i => i.newImport === 'Kind') 
+        // if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
+        if (file_info) {
+          addImport('Prisma', '@prisma/client', file_info.imports)
+          file_info_map.set(model_name, {
+            ...file_info,
+          })
+        }
+        else {
+          let new_imports: string[] = []
+          addImport('Prisma', '@prisma/client', new_imports)
+          file_info_map.set(model_name, {
+            path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+            imports: new_imports
+          })
+        }
         return 'Prisma.Decimal'
       case 'Float': return 'number'
       case 'DateTime': return 'Date'
@@ -34,54 +51,199 @@ export const getTypescriptType = (field: DMMF.Field, toImport: {fromImport: stri
       case 'Bytes': return 'Buffer'
     }
   }
+  else {
+    // Here means type of field is most likely a model
+    const field_type = `${prefix || ''}${field.type}${suffix || ''}`
+    const import_file_info = file_info_map.get(field_type)
+
+    if (import_file_info) {
+      if (file_info) {
+        addImport(field_type, import_file_info.path, file_info.imports)
+        file_info_map.set(model_name, {
+          ...file_info,
+        })
+      }
+      else {
+        let new_imports: string[] = []
+        addImport(field_type, import_file_info.path, new_imports)
+        file_info_map.set(model_name, {
+          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          imports: new_imports
+        })
+      }
+    }
+  }
 
   return `${prefix || ''}${field.type}${suffix || ''}`
 }
 
-export const isRelational = (field: DMMF.Field, enums: string, config: InitializedConfig): boolean => {
+export const isRelational = (field: DMMF.Field, enums: string[], config: InitializedConfig): boolean => {
   let typeIsEnum = isAnEnum(field, enums, config)
 
   return PRISMA_TYPES.indexOf(field.type) === -1 && !typeIsEnum
 }
 
-export const getGraphQLType = (field: DMMF.Field, toImport: {fromImport: string, newImport: string}[], prefix?: string, suffix?: string): string => {
+export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_map: Map<string, FileInfo>, config: InitializedConfig, prefix?: string, suffix?: string): string => {
+  const file_info = file_info_map.get(model_name)
+
   // TODO: Update these to what lfd-graphql-client has
   if (field.isId && field.type !== 'Int') {
-    let find = toImport.find(i => i.newImport === 'ID') 
-    if (!find) toImport.push({newImport: 'ID', fromImport: 'type-graphql'})
+    if (file_info) {
+      addImport('ID', 'type-graphql', file_info.imports)
+      file_info_map.set(model_name, {
+        ...file_info,
+      })
+    }
+    else {
+      let new_imports: string[] = []
+      addImport('ID', 'type-graphql', new_imports)
+      file_info_map.set(model_name, {
+        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+        imports: new_imports
+      })
+    }
+
     return 'ID'
   }
   else if (field.type === 'Int') { 
-    let find = toImport.find(i => i.newImport === 'Int') 
-    if (!find) toImport.push({newImport: 'Int', fromImport: 'type-graphql'})
+    if (file_info) {
+      addImport('Int', 'type-graphql', file_info.imports)
+      file_info_map.set(model_name, {
+        ...file_info,
+      })
+    }
+    else {
+      let new_imports: string[] = []
+      addImport('Int', 'type-graphql', new_imports)
+      file_info_map.set(model_name, {
+        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+        imports: new_imports
+      })
+    }
     return 'Int' 
   }
   else if (field.type === 'Float') { 
-    let find = toImport.find(i => i.newImport === 'Float') 
-    if (!find) toImport.push({newImport: 'Float', fromImport: 'type-graphql'})
+    if (file_info) {
+      addImport('Float', 'type-graphql', file_info.imports)
+      file_info_map.set(model_name, {
+        ...file_info,
+      })
+    }
+    else {
+      let new_imports: string[] = []
+      addImport('Float', 'type-graphql', new_imports)
+      file_info_map.set(model_name, {
+        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+        imports: new_imports
+      })
+    }
     return 'Float'
   }
-  else if (field.type === 'Decimal') {
+  else if (field.type === 'Decimal' || field.type === 'DecimalScalar' || field.type === 'Prisma.Decimal') {
+    const import_file_info = file_info_map.get('DecimalScalar')
+
+    if (import_file_info) {
+      if (file_info) {
+        addImport('DecimalScalar', import_file_info.path, file_info.imports)
+        file_info_map.set(model_name, {
+          ...file_info,
+        })
+      }
+      else {
+        let new_imports: string[] = []
+        addImport('DecimalScalar', import_file_info.path, new_imports)
+        file_info_map.set(model_name, {
+          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          imports: new_imports
+        })
+      }
+    }
+
     return 'DecimalScalar'
   }
   else if (field.type === 'BigInt') {
     // let find = toImport.find(i => i.newImport === 'GraphQLBigInt') 
     // if (!find) toImport.push({newImport: 'GraphQLBigInt', fromImport: 'graphql-scalars'})
     // return 'GraphQLBigInt'
+    const import_file_info = file_info_map.get('BigIntScalar')
+
+    if (import_file_info) {
+      if (file_info) {
+        addImport('BigIntScalar', import_file_info.path, file_info.imports)
+        file_info_map.set(model_name, {
+          ...file_info,
+        })
+      }
+      else {
+        let new_imports: string[] = []
+        addImport('BigIntScalar', import_file_info.path, new_imports)
+        file_info_map.set(model_name, {
+          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          imports: new_imports
+        })
+      }
+    }
     return 'BigIntScalar'
   }
-  else if (field.type === 'Json') {
-    let find = toImport.find(i => i.newImport === 'GraphQLJSONObject') 
-    if (!find) toImport.push({newImport: 'GraphQLJSONObject', fromImport: 'graphql-scalars'})
+  else if (field.type === 'Json' || field.type === 'JSON') {
+    if (file_info) {
+      addImport('GraphQLJSONObject', 'graphql-scalars', file_info.imports)
+      file_info_map.set(model_name, {
+        ...file_info,
+      })
+    }
+    else {
+      let new_imports: string[] = []
+      addImport('GraphQLJSONObject', 'graphql-scalars', new_imports)
+      file_info_map.set(model_name, {
+        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+        imports: new_imports
+      })
+    }
     return 'GraphQLJSONObject'
   }
   else if (field.type === 'Bytes') {
-    let find = toImport.find(i => i.newImport === 'GraphQLByte') 
-    if (!find) toImport.push({newImport: 'GraphQLByte', fromImport: 'graphql-scalars'})
+    if (file_info) {
+      addImport('GraphQLByte', 'graphql-scalars', file_info.imports)
+      file_info_map.set(model_name, {
+        ...file_info,
+      })
+    }
+    else {
+      let new_imports: string[] = []
+      addImport('GraphQLByte', 'graphql-scalars', new_imports)
+      file_info_map.set(model_name, {
+        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+        imports: new_imports
+      })
+    }
     return 'GraphQLByte'
   }
   else if (field.type === 'DateTime') return 'Date'
   else if (field.type === 'Boolean') return 'Boolean'
   else if (field.type === 'String') return 'String'
-  else return `${prefix || ''}${field.type}${suffix || ''}`
+  else {
+    // Here means type of field is most likely a model
+    const field_type = `${prefix || ''}${field.type}${suffix || ''}`
+    const import_file_info = file_info_map.get(field_type)
+
+    if (import_file_info) {
+      if (file_info) {
+        addImport(field_type, import_file_info.path, file_info.imports)
+        file_info_map.set(model_name, {
+          ...file_info,
+        })
+      }
+      else {
+        let new_imports: string[] = []
+        addImport(field_type, import_file_info.path, new_imports)
+        file_info_map.set(model_name, {
+          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          imports: new_imports
+        })
+      }
+    }
+    
+    return field_type
+  }
 }

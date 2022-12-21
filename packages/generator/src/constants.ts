@@ -60,6 +60,10 @@ export const ENUM_TYPE_SUFFIX = '_Enum' //Appended after every enum if enumAsTyp
 
 export const INDENT_SPACES = 2
 
+export const ENUM_DIR = 'enums'
+export const MODELS_DIR = 'models'
+export const SCALARS_DIR = 'scalars'
+
 export const REGEX = {
   matchWordeBeforeBracketRegex: /[\w]+\s+\{/gm,
   matchWordeBeforeEqualsAndBracketRegex: /[\w]+\s+\=+\s+\{+/gm,

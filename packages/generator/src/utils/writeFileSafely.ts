@@ -1,10 +1,14 @@
 import fs from 'fs'
 import { formatFile } from './formatFile'
-import path from 'path'
 
-export const writeFileSafely = async (outputDir: string, outputName: string, content: any) => {
-  fs.mkdirSync(outputDir, { recursive: true })
+export const writeFileSafely = async (output_path: string, content: string) => {
+  
+  // fs.mkdirSync(outputDir, { recursive: true })
+  const split = output_path.split('/')
+  const output_dir = split.slice(0, -1).join('/')
+
+  if (!fs.existsSync(output_dir)) fs.mkdirSync(output_dir, { recursive: true })
 
   // Ensures our file is formatted correctly before saving
-  fs.writeFileSync(path.join(outputDir, outputName), await formatFile(content))
+  fs.writeFileSync(output_path, await formatFile(content))
 }

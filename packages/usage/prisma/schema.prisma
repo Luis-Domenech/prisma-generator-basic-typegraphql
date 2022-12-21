@@ -1,12 +1,26 @@
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity", "interactiveTransactions", "metrics"]
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode  = "prisma"
 }
 
+generator client {
+  provider  = "prisma-client-js"
+}
+
+generator dbml {
+  provider   = "prisma-dbml-generator"
+  output     = "../src/generated/dbml/"
+  // Can be used in https://dbdiagram.io/d
+  outputName = "schema.dbml"
+}
 
 generator basic_typegraphql {
-  provider          = "node ../../node_modules/prisma-generator-basic-typegraphql"
-  output            = "../generated/type-graphql-types"
+  // provider          = "node ../../node_modules/prisma-generator-basic-typegraphql"
+  // provider          = "node ../../node_modules/my-generator"
+  provider          = "prisma-generator-basic-typegraphql"
+  // provider          = "my-generator"
+  output            = "../src/generated/type-graphql-types"
   outputName        = "index.ts"
   wipeOutput        = true
   useYarn           = true
@@ -17,11 +31,7 @@ generator basic_typegraphql {
   enumAsType        = false
   enumAsConst       = true
   addNull           = true
-}
-
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  addTypenameField  = true
 }
 
 model TestScalarsRequired {
@@ -96,6 +106,8 @@ model Post {
   user_id             Int
   test_relational     TestRelational  @relation(fields: [test_relational_id], references: [id])
   test_relational_id  String  @unique
+
+  @@index([user_id])
 }
 
 enum NotificationType {
