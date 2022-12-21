@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.8...v1.1.9) (2022-12-21)
+
+
+### Bug Fixes
+
+* **package:** Index files are now exported within main output directory and its subfolders ([6005e91](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/6005e911adb437bf746cce02ca10fe1fb9da8034))
+
 ## [1.1.8](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.7...v1.1.8) (2022-12-21)
 
 
