@@ -19,7 +19,6 @@ export interface ExtendedConfig extends Dictionary<string> {
   hideRelations: string
   strictModifiers: string
   wipeOutput: string
-  outputName: string
   outputDir: string
   skipVerCheck: string
   installDeps: string
@@ -44,7 +43,6 @@ export interface InitializedConfig {
   optionalRelations: boolean
   addNull: boolean
   addUndefined: boolean
-  outputName: string
   outputDir: string
   addTypenameField: boolean
   importAsESM: boolean

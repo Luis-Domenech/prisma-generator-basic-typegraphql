@@ -1,5 +1,5 @@
 import { DMMF } from "@prisma/generator-helper"
-import { ENUM_DIR, ENUM_TYPE_SUFFIX, MODELS_DIR, SCALARS_DIR } from "../constants"
+import { AUTO_GENERATED_COMMENT, ENUM_DIR, ENUM_TYPE_SUFFIX, MODELS_DIR, SCALARS_DIR } from "../constants"
 import { FieldModifier, FieldOptional, FileInfo, InitializedConfig } from "../types"
 import { addImport, getFromImport } from "../utils/addImport"
 import { installPackage } from "../utils/installPackages"
@@ -7,6 +7,7 @@ import { genEnums } from "./genEnums"
 import { genModels } from "./genModels"
 import { genScalars } from "./genScalars"
 import path from "path"
+import { writeFileSafely } from "../utils/writeFileSafely"
 
 export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], config: InitializedConfig) => {
   
@@ -15,6 +16,10 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
   // addImport('Field', 'type-graphql', imports)
 
   const file_info_map: Map<string, FileInfo> = new Map()
+  const enum_exports: string[] = []
+  const model_exports: string[] = []
+  const scalar_exports: string[] = []
+  const index_exports: string[] = []
 
   dmmf.datamodel.enums.map(({ name, values }, index) => {
     const new_imports: string[] = []
@@ -26,6 +31,8 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
         path: path.join(config.outputDir, `${ENUM_DIR}/${name}.ts`),
         imports: new_imports
       })
+      if (config.importAsESM) enum_exports.push(`export * from './${name}.js'`)
+      else enum_exports.push(`export * from './${name}'`)
     }
     // Set file path for enums with suffix as same path
     // as regular enum name
@@ -49,6 +56,9 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
         path: path.join(config.outputDir, `${MODELS_DIR}/${name}.ts`),
         imports: new_imports
       })
+
+      if (config.importAsESM) model_exports.push(`export * from './${name}.js'`)
+      else model_exports.push(`export * from './${name}'`)
     }
   })
 
@@ -62,11 +72,12 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
     imports: []
   })
   
-  const enums = await genEnums(dmmf.datamodel.enums, file_info_map, config)
+  const enums = await (await genEnums(dmmf.datamodel.enums, file_info_map, config)).filter(Boolean)
 
-  const models = await genModels(dmmf.datamodel.models, fieldModifiers, fieldsOptional, enums, file_info_map, config)
+  const models = await (await genModels(dmmf.datamodel.models, fieldModifiers, fieldsOptional, enums, file_info_map, config)).filter(Boolean)
 
-  const scalars = await genScalars(models, file_info_map, config)
+  const scalars = await (await genScalars(models, file_info_map, scalar_exports, config)).filter(Boolean)
+
 
   if (config.installDeps) {
     const installed: string[] = []
@@ -87,6 +98,47 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
         }
       }
     }
+  }
+
+  if (enums.length > 0) {
+    if (config.importAsESM) index_exports.push(`export * from './${ENUM_DIR}/index.js'`)
+    else index_exports.push(`export * from './${ENUM_DIR}/index'`)
+    const file_path = path.join(config.outputDir, `${ENUM_DIR}/index.ts`)
+    const content = [
+      AUTO_GENERATED_COMMENT,
+      enum_exports.join('\n'),
+    ].join('\n')
+    await writeFileSafely(file_path, content)
+  }
+  if (models.length > 0) {
+    if (config.importAsESM) index_exports.push(`export * from './${MODELS_DIR}/index.js'`)
+    else index_exports.push(`export * from './${MODELS_DIR}/index'`)
+    const file_path = path.join(config.outputDir, `${MODELS_DIR}/index.ts`)
+    const content = [
+      AUTO_GENERATED_COMMENT,
+      model_exports.join('\n'),
+    ].join('\n')
+    await writeFileSafely(file_path, content)
+  }
+  if (scalars.length > 0) {
+    if (config.importAsESM) index_exports.push(`export * from './${SCALARS_DIR}/index.js'`)
+    else index_exports.push(`export * from './${SCALARS_DIR}/index'`)
+    const file_path = path.join(config.outputDir, `${SCALARS_DIR}/index.ts`)
+    const content = [
+      AUTO_GENERATED_COMMENT,
+      scalar_exports.join('\n'),
+    ].join('\n')
+    await writeFileSafely(file_path, content)
+  }
+
+  if (index_exports.length) {
+    const file_path = path.join(config.outputDir, `./index.ts`)
+
+    const content = [
+      AUTO_GENERATED_COMMENT,
+      index_exports.join('\n'),
+    ].join('\n')
+    await writeFileSafely(file_path, content)
   }
 
   // return [

@@ -4,7 +4,7 @@ import { FieldModifier, FieldOptional, FileInfo, InitializedConfig } from '../ty
 import { writeFileSafely } from '../utils/writeFileSafely'
 import { genFields } from './genFields'
 
-export const genModels = async (models: DMMF.Model[], fieldModifiers: FieldModifier[], fieldOptionals: FieldOptional[], enums: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig) => {
+export const genModels = async (models: DMMF.Model[], fieldModifiers: FieldModifier[], fieldOptionals: FieldOptional[], enums: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig): Promise<string[]> => {
   return await Promise.all(models.map(async (model) => {
     const fields = genFields(model, model.fields, fieldModifiers, fieldOptionals, enums, file_info_map, config)
 

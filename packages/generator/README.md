@@ -7,7 +7,7 @@
 ## Description
 An extremely basic typegraphql type generator for prisma. I needed something like typegraphql-prisma that works with prisma `4.0` and at that time, typegraphql-prisma had not updated their generator to support versioon `4.0`, so I made this extremely simple generator to generate typegraphql types.
 
-Essentially, this generator exports one file into a desired directory with all models and enums converted to TypeGraphQL types which you can then use in your TypeGraphQL dependent project. This doesn't emit any CRUD operations like other generators. It just emits models and enums.
+Essentially, this generator exports various folders and files into a desired directory with all models and enums converted to TypeGraphQL types which you can then use in your TypeGraphQL dependent project. This doesn't emit any CRUD operations like other generators. It just emits models and enums.
 
 ## Installation
 You can install this generator with:
@@ -37,7 +37,6 @@ The generator can be configured with the following options:
 | Option            | Value                       | Default                                             | Comment                                                                                            |
 | ----------------- |:---------------------------:|:---------------------------------------------------:|:-------------------------------------------------------------------------------------------------- |
 | output            | ``` string ```              | ``` ../src/generated/type-graphql-types ```         | Folder where generated file will be stored. This folder is auto created if it doesn't exists.      |
-| outputName        | ``` string ```              | ``` index.ts ```                                    | Name of the file to generate.                                                                      |
 | wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                               |
 | strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.                   |
 | installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                      |

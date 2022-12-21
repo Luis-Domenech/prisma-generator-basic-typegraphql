@@ -13,7 +13,7 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     outputDir: generator_config.output ? 
                 (generator_config.output.value ? generator_config.output.value : (config.outputDir ? config.outputDir : DEFAULT_OUTPUT_DIR)) : 
                 (config.outputDir ? config.outputDir : DEFAULT_OUTPUT_DIR),
-    outputName: config.outputName ? config.outputName : DEFAULT_FILE_NAME,
+    // outputName: config.outputName ? config.outputName : DEFAULT_FILE_NAME,
     skipVerCheck: config.skipVerCheck == 'true',
     installDeps: config.installDeps == 'true',
     enumAsType: config.enumAsType == 'true',

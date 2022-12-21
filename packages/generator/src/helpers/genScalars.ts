@@ -8,12 +8,15 @@ const indent = (index: number) => {
   return " ".repeat(2 + (index - 1) * INDENT_SPACES)
 }
 
-export const genScalars = async (models: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig) => {
+export const genScalars = async (models: string[], file_info_map: Map<string, FileInfo>, exports: string[], config: InitializedConfig): Promise<string[]> => {
   let ret: string[] = []
 
   if (models.join('').includes('DecimalScalar')) {
     const file_info = file_info_map.get('DecimalScalar')
     
+    if (config.importAsESM) exports.push(`export * from './DecimalScalar.js'`)
+    else exports.push(`export * from './DecimalScalar'`)
+
     if (file_info) {
       addImport('GraphQLScalarType', 'graphql', file_info.imports)
       addImport('Kind', 'graphql', file_info.imports)
@@ -79,6 +82,9 @@ export const genScalars = async (models: string[], file_info_map: Map<string, Fi
 
   if (models.join('').includes('BigIntScalar')) {
     const file_info = file_info_map.get('BigIntScalar')
+
+    if (config.importAsESM) exports.push(`export * from './BigIntScalar.js'`)
+    else exports.push(`export * from './BigIntScalar'`)
     
     if (file_info) {
       addImport('GraphQLScalarType', 'graphql', file_info.imports)

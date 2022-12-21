@@ -6,10 +6,10 @@ import { addImport } from '../utils/addImport'
 import { writeFileSafely } from '../utils/writeFileSafely'
 
 // Generate an enum for every enum
-export const genEnums = async (enums: DMMF.DatamodelEnum[], file_info_map: Map<string, FileInfo>, config: InitializedConfig) => {
+export const genEnums = async (enums: DMMF.DatamodelEnum[], file_info_map: Map<string, FileInfo>, config: InitializedConfig): Promise<string[]> => {
   return await Promise.all(enums.map(async ({ name, values }, index) => {
     
-    
+
     const enumValues = values.map(({ name }) => `${" ".repeat(INDENT_SPACES)}${name} = '${name}'`).join(',\n')
 
     const enumAsType: string = `export type ${name} = keyof typeof ${name}${ENUM_TYPE_SUFFIX}` 
