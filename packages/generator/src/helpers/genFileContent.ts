@@ -133,7 +133,7 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
 
   if (index_exports.length) {
     const file_path = path.join(config.outputDir, `./index.ts`)
-
+    
     const content = [
       AUTO_GENERATED_COMMENT,
       index_exports.join('\n'),

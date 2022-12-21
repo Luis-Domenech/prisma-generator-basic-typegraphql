@@ -5,9 +5,16 @@ export const getFromImport = (i: string) => {
   return fromImport ? fromImport[0].replace(REGEX.removeSingleQuotes, '') : ''
 }
 
-export const addImport = (newImport: string, fromImport: string, imports: string[]) => {
+export const addImport = (newImport: string, fromImport: string, imports: string[], as_type = false) => {
 
-  let find = imports.find(i => getFromImport(i) === fromImport)
+  let find = undefined
+  
+  if (as_type) {
+    find = imports.find(i => getFromImport(i) === fromImport && i.includes('type {'))
+  }
+  else {
+    find = imports.find(i => getFromImport(i) === fromImport && !i.includes('type {'))
+  }
 
   if (find) {
     let index = imports.indexOf(find)
@@ -33,6 +40,7 @@ export const addImport = (newImport: string, fromImport: string, imports: string
     imports[index] = newImportString
   }
   else {
-    imports.push(`import { ${newImport} } from '${fromImport}'`)
+    if (as_type) imports.push(`import type { ${newImport} } from '${fromImport}'`)
+    else imports.push(`import { ${newImport} } from '${fromImport}'`)
   }
 }

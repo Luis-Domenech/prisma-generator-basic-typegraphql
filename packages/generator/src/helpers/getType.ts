@@ -58,14 +58,14 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
 
     if (import_file_info) {
       if (file_info) {
-        addImport(field_type, import_file_info.path, file_info.imports)
+        addImport(field_type, import_file_info.path, file_info.imports, true)
         file_info_map.set(model_name, {
           ...file_info,
         })
       }
       else {
         let new_imports: string[] = []
-        addImport(field_type, import_file_info.path, new_imports)
+        addImport(field_type, import_file_info.path, new_imports, true)
         file_info_map.set(model_name, {
           path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
           imports: new_imports
@@ -224,19 +224,25 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
   else if (field.type === 'String') return 'String'
   else {
     // Here means type of field is most likely a model
+    // IN order to avoid circular dependency issues,
+    // we have to import model types, but renamed since
+    // we are already exporting the model types but as 
+    // `import type { ModelName } from './ModelName'
     const field_type = `${prefix || ''}${field.type}${suffix || ''}`
+    const type_import = `${field_type} as ${field_type}Type`
+    const type_name = `${field_type}Type`
     const import_file_info = file_info_map.get(field_type)
 
     if (import_file_info) {
       if (file_info) {
-        addImport(field_type, import_file_info.path, file_info.imports)
+        addImport(type_import, import_file_info.path, file_info.imports)
         file_info_map.set(model_name, {
           ...file_info,
         })
       }
       else {
         let new_imports: string[] = []
-        addImport(field_type, import_file_info.path, new_imports)
+        addImport(type_import, import_file_info.path, new_imports)
         file_info_map.set(model_name, {
           path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
           imports: new_imports
@@ -244,6 +250,6 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       }
     }
     
-    return field_type
+    return type_name
   }
 }
