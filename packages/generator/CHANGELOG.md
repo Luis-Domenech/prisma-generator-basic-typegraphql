@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.7...v1.1.8) (2022-12-21)
+
+
+### Bug Fixes
+
+* **package:** Updated dependencies and all type exports are now exported to their own files ([400d9b8](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/400d9b880c32d0c136c52365f527476f7a438506))
+
 ## [1.1.7](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.6...v1.1.7) (2022-10-15)
 
 
