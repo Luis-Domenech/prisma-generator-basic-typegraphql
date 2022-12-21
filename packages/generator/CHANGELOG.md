@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.9...v1.1.10) (2022-12-21)
+
+
+### Bug Fixes
+
+* **package:** Fixed issue with circular dependency ([3ef858a](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/3ef858a98f32f23155b36cf82618bc8cdaad2969))
+
 ## [1.1.9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.8...v1.1.9) (2022-12-21)
 
 
