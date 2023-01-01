@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.11...v1.1.12) (2023-01-01)
+
+
+### Bug Fixes
+
+* **package:** Geenrated imports are now relative paths instead of absolute paths ([d7783e1](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/d7783e1c0a494ef54b005936cc74c0297b77f884))
+
 ## [1.1.11](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.10...v1.1.11) (2023-01-01)
 
 
