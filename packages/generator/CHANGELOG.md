@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.12...v1.1.13) (2023-01-01)
+
+
+### Bug Fixes
+
+* **package:** Generated Prisma imports are now default imports ([926039d](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/926039d057d22589faabe1aed0d95a623fe54d63))
+
 ## [1.1.12](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.11...v1.1.12) (2023-01-01)
 
 
