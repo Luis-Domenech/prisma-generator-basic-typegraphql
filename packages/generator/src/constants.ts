@@ -71,5 +71,6 @@ export const REGEX = {
   matchFirstWord: /[^\s][\w]+/gm,
   removeWhiteSpaceAndBracketRegex: /\s+\{+/gm,
   removeEqualsAndWhiteSpaceAndBracketRegex: /\s+\{+/gm,
-  removeSingleQuotes: /(\')*/gm
+  removeSingleQuotes: /(\')*/gm,
+  match_file_name_only: /(?!\/)+(\w)+(?=.ts)+/gm,
 }
