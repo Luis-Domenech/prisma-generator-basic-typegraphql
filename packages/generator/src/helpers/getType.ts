@@ -29,20 +29,20 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
         // temp = toImport.find(i => i.newImport === 'Kind') 
         // if (!temp) toImport.push({newImport: 'Kind', fromImport: 'graphql'})
         if (file_info) {
-          addImport('Prisma', '@prisma/client', file_info.imports)
+          addImport('Prisma', '@prisma/client', file_info.imports, false, true)
           file_info_map.set(model_name, {
             ...file_info,
           })
         }
         else {
           let new_imports: string[] = []
-          addImport('Prisma', '@prisma/client', new_imports)
+          addImport('Prisma', '@prisma/client', new_imports, false, true)
           file_info_map.set(model_name, {
             path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
             imports: new_imports
           })
         }
-        return 'Prisma.Decimal'
+        return 'Prisma.Prisma.Decimal'
       case 'Float': return 'number'
       case 'DateTime': return 'Date'
       case 'Json':
@@ -147,7 +147,7 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
     }
     return 'Float'
   }
-  else if (field.type === 'Decimal' || field.type === 'DecimalScalar' || field.type === 'Prisma.Decimal') {
+  else if (field.type === 'Decimal' || field.type === 'DecimalScalar' || field.type === 'Prisma.Prisma.Decimal' || field.type === 'Prisma.Decimal') {
     const import_file_info = file_info_map.get('DecimalScalar')
 
     if (import_file_info) {

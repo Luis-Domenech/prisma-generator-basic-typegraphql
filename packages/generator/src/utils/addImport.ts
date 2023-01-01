@@ -5,7 +5,14 @@ export const getFromImport = (i: string) => {
   return fromImport ? fromImport[0].replace(REGEX.removeSingleQuotes, '') : ''
 }
 
-export const addImport = (newImport: string, fromImport: string, imports: string[], as_type = false) => {
+export const addImport = (newImport: string, fromImport: string, imports: string[], as_type = false, as_default = false) => {
+  if (as_default) {
+    const new_import = `import ${newImport} from '${fromImport}'`
+    if (!imports.find(i => i === new_import)) {
+      imports.push(new_import)
+    }
+    return
+  }
 
   let find = undefined
   
