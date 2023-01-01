@@ -4,6 +4,7 @@ import { ENUM_TYPE_SUFFIX, MODELS_DIR, PRISMA_TYPES, REGEX } from "../constants"
 import { FileInfo, InitializedConfig } from "../types";
 import { addImport } from "../utils/addImport";
 import { isAnEnum } from "../utils/isEnum";
+import { genRelativeImport } from "./genImports";
 
 export const getTypescriptType = (model_name: string, field: DMMF.Field, file_info_map: Map<string, FileInfo>, config: InitializedConfig, prefix?: string, suffix?: string): string => {
   const file_info = file_info_map.get(model_name)
@@ -60,7 +61,7 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
       if (file_info) {
         
         // addImport(field_type, import_file_info.path, file_info.imports, true)
-        addImport(field_type, import_file_info.path.replace(REGEX.match_file_name_only, 'index'), file_info.imports, true)
+        addImport(field_type, genRelativeImport(import_file_info.path, file_info.path), file_info.imports, true)
         
         file_info_map.set(model_name, {
           ...file_info,
@@ -68,12 +69,13 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
       }
       else {
         let new_imports: string[] = []
+        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
         
-        // addImport(field_type, import_file_info.path, new_imports, true)
-        addImport(field_type, import_file_info.path.replace(REGEX.match_file_name_only, 'index'), new_imports, true)
+        // addImport(field_type, import_file_info.path, new_imports, true)        
+        addImport(field_type, genRelativeImport(import_file_info.path, file_path), new_imports, true)
         
         file_info_map.set(model_name, {
-          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          path: file_path,
           imports: new_imports
         })
       }
@@ -152,7 +154,7 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       if (file_info) {
         
         // addImport('DecimalScalar', import_file_info.path, file_info.imports)
-        addImport('DecimalScalar', import_file_info.path.replace(REGEX.match_file_name_only, 'index'), file_info.imports)
+        addImport('DecimalScalar', genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
         
         file_info_map.set(model_name, {
           ...file_info,
@@ -160,12 +162,13 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       }
       else {
         let new_imports: string[] = []
+        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
         
         // addImport('DecimalScalar', import_file_info.path, new_imports)
-        addImport('DecimalScalar', import_file_info.path.replace(REGEX.match_file_name_only, 'index'), new_imports)
+        addImport('DecimalScalar', genRelativeImport(import_file_info.path, file_path), new_imports)
         
         file_info_map.set(model_name, {
-          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          path: file_path,
           imports: new_imports
         })
       }
@@ -183,7 +186,7 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       if (file_info) {
         
         // addImport('BigIntScalar', import_file_info.path, file_info.imports)
-        addImport('BigIntScalar', import_file_info.path.replace(REGEX.match_file_name_only, 'index'), file_info.imports)
+        addImport('BigIntScalar', genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
         
         file_info_map.set(model_name, {
           ...file_info,
@@ -191,12 +194,13 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       }
       else {
         let new_imports: string[] = []
+        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`) 
         
         // addImport('BigIntScalar', import_file_info.path, new_imports)
-        addImport('BigIntScalar', import_file_info.path.replace(REGEX.match_file_name_only, 'index'), new_imports)
+        addImport('BigIntScalar', genRelativeImport(import_file_info.path, file_path), new_imports)
         
         file_info_map.set(model_name, {
-          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          path: file_path,
           imports: new_imports
         })
       }
@@ -255,7 +259,7 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       if (file_info) {
         
         // addImport(type_import, import_file_info.path, file_info.imports)
-        addImport(type_import, import_file_info.path.replace(REGEX.match_file_name_only, 'index'), file_info.imports)
+        addImport(type_import, genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
         
         file_info_map.set(model_name, {
           ...file_info,
@@ -263,12 +267,12 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
       }
       else {
         let new_imports: string[] = []
-        
+        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
         // addImport(type_import, import_file_info.path, new_imports)
-        addImport(type_import, import_file_info.path.replace(REGEX.match_file_name_only, 'index'), new_imports)
+        addImport(type_import, genRelativeImport(import_file_info.path, file_path), new_imports)
         
         file_info_map.set(model_name, {
-          path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+          path: file_path,
           imports: new_imports
         })
       }

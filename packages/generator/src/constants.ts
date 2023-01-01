@@ -73,4 +73,5 @@ export const REGEX = {
   removeEqualsAndWhiteSpaceAndBracketRegex: /\s+\{+/gm,
   removeSingleQuotes: /(\')*/gm,
   match_file_name_only: /(?!\/)+(\w)+(?=.ts)+/gm,
+  match_file_path: /^.*[\\/]/gm, // Includes '/' at end of path if any
 }
