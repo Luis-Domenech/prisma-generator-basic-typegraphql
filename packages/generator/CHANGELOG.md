@@ -1,3 +1,10 @@
+## [1.1.14](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.13...v1.1.14) (2023-01-28)
+
+
+### Bug Fixes
+
+* **package:** Fixed rare import generation issue and Prisma Json types now use JsonValue ([e70e03d](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/e70e03d79f18e96a0a9361f54cb8a88f27d6380c))
+
 ## [1.1.13](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.12...v1.1.13) (2023-01-01)
 
 
