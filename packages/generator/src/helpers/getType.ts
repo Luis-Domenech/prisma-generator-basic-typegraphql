@@ -1,6 +1,6 @@
 import { DMMF } from "@prisma/generator-helper"
 import path from "path";
-import { ENUM_TYPE_SUFFIX, MODELS_DIR, PRISMA_TYPES, REGEX } from "../constants"
+import { AS_TYPE_SUFFIX, ENUM_TYPE_SUFFIX, MODELS_DIR, PRISMA_TYPES, REGEX } from "../constants"
 import { FileInfo, InitializedConfig } from "../types";
 import { addImport } from "../utils/addImport";
 import { isAnEnum } from "../utils/isEnum";
@@ -293,8 +293,8 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
     // we are already exporting the model types but as 
     // `import type { ModelName } from './ModelName'
     const field_type = `${prefix || ''}${field.type}${suffix || ''}`
-    const type_import = `${field_type} as ${field_type}Type`
-    const type_name = `${field_type}Type`
+    const type_import = `${field_type} as ${field_type}${AS_TYPE_SUFFIX}`
+    const type_name = `${field_type}${AS_TYPE_SUFFIX}`
     const import_file_info = file_info_map.get(field_type)
 
     if (import_file_info) {

@@ -76,3 +76,5 @@ export const REGEX = {
   match_file_name_only: /(?!\/)+(\w)+(?=.ts)+/gm,
   match_file_path: /^.*[\\/]/gm, // Includes '/' at end of path if any
 }
+
+export const AS_TYPE_SUFFIX = 'GraphQLType'
