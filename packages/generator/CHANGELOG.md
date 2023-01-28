@@ -1,3 +1,10 @@
+## [1.1.16](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.15...v1.1.16) (2023-01-28)
+
+
+### Bug Fixes
+
+* **package:** Fixed self importing issue ([dad2584](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/dad25841a9acdc593cea6c986d3806ebc001e956))
+
 ## [1.1.15](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.14...v1.1.15) (2023-01-28)
 
 
