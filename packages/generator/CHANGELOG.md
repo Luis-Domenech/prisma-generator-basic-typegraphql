@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.14...v1.1.15) (2023-01-28)
+
+
+### Bug Fixes
+
+* **package:** Changed suffix for type imports to avoid potential naming conflicts ([1165eb9](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/1165eb938c265039b43f9da32ef51c929fc6c2e0))
+
 ## [1.1.14](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.13...v1.1.14) (2023-01-28)
 
 
