@@ -72,27 +72,29 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
     const field_type = `${prefix || ''}${field.type}${suffix || ''}`
     const import_file_info = file_info_map.get(field_type)
 
-    if (import_file_info) {
-      if (file_info) {
-        
-        // addImport(field_type, import_file_info.path, file_info.imports, true)
-        addImport(field_type, genRelativeImport(import_file_info.path, file_info.path), file_info.imports, true)
-        
-        file_info_map.set(model_name, {
-          ...file_info,
-        })
-      }
-      else {
-        let new_imports: string[] = []
-        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
-        
-        // addImport(field_type, import_file_info.path, new_imports, true)        
-        addImport(field_type, genRelativeImport(import_file_info.path, file_path), new_imports, true)
-        
-        file_info_map.set(model_name, {
-          path: file_path,
-          imports: new_imports
-        })
+    if (field.type !== model_name) {
+      if (import_file_info) {
+        if (file_info) {
+          
+          // addImport(field_type, import_file_info.path, file_info.imports, true)
+          addImport(field_type, genRelativeImport(import_file_info.path, file_info.path), file_info.imports, true)
+          
+          file_info_map.set(model_name, {
+            ...file_info,
+          })
+        }
+        else {
+          let new_imports: string[] = []
+          const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
+          
+          // addImport(field_type, import_file_info.path, new_imports, true)        
+          addImport(field_type, genRelativeImport(import_file_info.path, file_path), new_imports, true)
+          
+          file_info_map.set(model_name, {
+            path: file_path,
+            imports: new_imports
+          })
+        }
       }
     }
   }
@@ -293,33 +295,38 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
     // we are already exporting the model types but as 
     // `import type { ModelName } from './ModelName'
     const field_type = `${prefix || ''}${field.type}${suffix || ''}`
-    const type_import = `${field_type} as ${field_type}${AS_TYPE_SUFFIX}`
-    const type_name = `${field_type}${AS_TYPE_SUFFIX}`
-    const import_file_info = file_info_map.get(field_type)
 
-    if (import_file_info) {
-      if (file_info) {
-        
-        // addImport(type_import, import_file_info.path, file_info.imports)
-        addImport(type_import, genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
-        
-        file_info_map.set(model_name, {
-          ...file_info,
-        })
-      }
-      else {
-        let new_imports: string[] = []
-        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
-        // addImport(type_import, import_file_info.path, new_imports)
-        addImport(type_import, genRelativeImport(import_file_info.path, file_path), new_imports)
-        
-        file_info_map.set(model_name, {
-          path: file_path,
-          imports: new_imports
-        })
-      }
-    }
+    // Check to avoid importing itself
     
-    return type_name
+    if (field.type !== model_name) {
+      const type_import = `${field_type} as ${field_type}${AS_TYPE_SUFFIX}`
+      const type_name = `${field_type}${AS_TYPE_SUFFIX}`
+      const import_file_info = file_info_map.get(field_type)
+  
+      if (import_file_info) {
+        if (file_info) {
+          
+          // addImport(type_import, import_file_info.path, file_info.imports)
+          addImport(type_import, genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
+          
+          file_info_map.set(model_name, {
+            ...file_info,
+          })
+        }
+        else {
+          let new_imports: string[] = []
+          const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`)
+          // addImport(type_import, import_file_info.path, new_imports)
+          addImport(type_import, genRelativeImport(import_file_info.path, file_path), new_imports)
+          
+          file_info_map.set(model_name, {
+            path: file_path,
+            imports: new_imports
+          })
+        }
+      }
+      return type_name
+    }
+    else return field_type
   }
 }
