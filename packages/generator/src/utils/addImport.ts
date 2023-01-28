@@ -25,26 +25,34 @@ export const addImport = (newImport: string, fromImport: string, imports: string
 
   if (find) {
     let index = imports.indexOf(find)
-    let newImportString = ''
+    // let newImportString = ''
 
-    let insideImports = false
-    let currentImports: string[] = []
+    // let insideImports = false
+    // let currentImports: string[] = []
 
-    find.split(" ").map((s) => {
-      if (s === "{") insideImports = true
-      if (insideImports) currentImports.push(s)
+    const first_bracket = find.indexOf('{')
+    const last_bracket = find.indexOf('}')
+    const imports_arr = (find.slice(first_bracket + 2, last_bracket - 1) + ', ' + newImport).split(', ')
+    const new_imports = [...new Set(imports_arr)].join(', ')
+
+
+
+    // find.split(" ").map((s) => {
+    //   if (s === "{") insideImports = true
+    //   if (insideImports) currentImports.push(s)
       
-      if (s === "}") {
-        const find = currentImports.find(s2 => s2.replace(",", "") === newImport)
-        if (!find) newImportString += newImportString.charAt(newImportString.length - 1) === ',' ? ` ${newImport} ${s}` : `, ${newImport} ${s}`
-        else newImportString += newImportString ? ` ${s}` : s
+    //   if (s === "}") {
+    //     const find = currentImports.find(s2 => s2.replace(",", "") === newImport)
+    //     if (!find) newImportString += newImportString.charAt(newImportString.length - 1) === ',' ? ` ${newImport} ${s}` : `, ${newImport} ${s}`
+    //     else newImportString += newImportString ? ` ${s}` : s
 
-        insideImports = false
-      }
-      else newImportString += newImportString ? ` ${s}` : s
-    })
+    //     insideImports = false
+    //   }
+    //   else newImportString += newImportString ? ` ${s}` : s
+    // })
 
-    imports[index] = newImportString
+    if (as_type) imports[index] = `import type { ${new_imports} } from '${fromImport}'`
+    else imports[index] = `import { ${new_imports} } from '${fromImport}'`
   }
   else {
     if (as_type) imports.push(`import type { ${newImport} } from '${fromImport}'`)

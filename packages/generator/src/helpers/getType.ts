@@ -48,7 +48,22 @@ export const getTypescriptType = (model_name: string, field: DMMF.Field, file_in
       case 'Json':
         // temp = toImport.find(i => i.newImport === 'Prisma') 
         // if (!temp) toImport.push({newImport: 'Prisma', fromImport: '@prisma/client'})
-        return 'JSON'
+        // return 'JSON'
+        if (file_info) {
+          addImport('Prisma', '@prisma/client', file_info.imports, false, true)
+          file_info_map.set(model_name, {
+            ...file_info,
+          })
+        }
+        else {
+          let new_imports: string[] = []
+          addImport('Prisma', '@prisma/client', new_imports, false, true)
+          file_info_map.set(model_name, {
+            path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+            imports: new_imports
+          })
+        }
+        return 'Prisma.Prisma.JsonValue'
       case 'Bytes': return 'Buffer'
     }
   }
@@ -207,22 +222,49 @@ export const getGraphQLType = (model_name: string, field: DMMF.Field, file_info_
     }
     return 'BigIntScalar'
   }
-  else if (field.type === 'Json' || field.type === 'JSON') {
-    if (file_info) {
-      addImport('GraphQLJSONObject', 'graphql-scalars', file_info.imports)
-      file_info_map.set(model_name, {
-        ...file_info,
-      })
+  else if (field.type === 'Json' || field.type === 'JSON' || field.type === 'JsonScalar' || field.type === 'Prisma.Prisma.JsonValue' || field.type === 'Prisma.JsonValue') {
+    const import_file_info = file_info_map.get('BigIntScalar')
+
+    if (import_file_info) {
+      if (file_info) {
+        
+        // addImport('BigIntScalar', import_file_info.path, file_info.imports)
+        addImport('JsonScalar', genRelativeImport(import_file_info.path, file_info.path), file_info.imports)
+        
+        file_info_map.set(model_name, {
+          ...file_info,
+        })
+      }
+      else {
+        let new_imports: string[] = []
+        const file_path = path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`) 
+        
+        addImport('JsonScalar', genRelativeImport(import_file_info.path, file_path), new_imports)
+        
+        file_info_map.set(model_name, {
+          path: file_path,
+          imports: new_imports
+        })
+      }
     }
-    else {
-      let new_imports: string[] = []
-      addImport('GraphQLJSONObject', 'graphql-scalars', new_imports)
-      file_info_map.set(model_name, {
-        path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
-        imports: new_imports
-      })
-    }
-    return 'GraphQLJSONObject'
+
+    // if (file_info) {
+    //   addImport('GraphQLJSONObject', 'graphql-scalars', file_info.imports)
+
+    //   file_info_map.set(model_name, {
+    //     ...file_info,
+    //   })
+    // }
+    // else {
+    //   let new_imports: string[] = []
+    //   addImport('GraphQLJSONObject', 'graphql-scalars', new_imports)
+    //   file_info_map.set(model_name, {
+    //     path: path.join(config.outputDir, `${MODELS_DIR}/${model_name}.ts`),
+    //     imports: new_imports
+    //   })
+    // }
+
+    return 'JsonScalar'
   }
   else if (field.type === 'Bytes') {
     if (file_info) {

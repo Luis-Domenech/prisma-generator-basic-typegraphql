@@ -71,6 +71,10 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
     path: path.join(config.outputDir, `${SCALARS_DIR}/BigIntScalar.ts`),
     imports: []
   })
+  file_info_map.set('JsonScalar', {
+    path: path.join(config.outputDir, `${SCALARS_DIR}/JsonScalar.ts`),
+    imports: []
+  })
   
   const enums = await (await genEnums(dmmf.datamodel.enums, file_info_map, config)).filter(Boolean)
 

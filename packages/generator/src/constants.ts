@@ -53,7 +53,8 @@ export const OPTIONAL_IDENTIFIERS = [
 
 export const SCALARS = [
   'DecimalScalar',
-  'BigInt'
+  'BigIntScalar',
+  'JsonScalar'
 ]
 
 export const ENUM_TYPE_SUFFIX = '_Enum' //Appended after every enum if enumAsType is true
