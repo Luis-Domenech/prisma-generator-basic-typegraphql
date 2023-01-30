@@ -1,3 +1,10 @@
+## [1.1.18](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.17...v1.1.18) (2023-01-30)
+
+
+### Bug Fixes
+
+* **package:** Fixed unhandled edge case on graphql type generation ([1b2ad06](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/1b2ad06fd6a34be57425128761fa60606bf9972d))
+
 ## [1.1.17](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.16...v1.1.17) (2023-01-30)
 
 
