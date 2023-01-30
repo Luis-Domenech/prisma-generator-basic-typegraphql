@@ -1,3 +1,10 @@
+## [1.1.17](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.16...v1.1.17) (2023-01-30)
+
+
+### Bug Fixes
+
+* **package:** Added 'partialRelations' config option/feature ([1ff498e](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/1ff498ec673e8dd5b7595525df11222e41d7e04e))
+
 ## [1.1.16](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.15...v1.1.16) (2023-01-28)
 
 
