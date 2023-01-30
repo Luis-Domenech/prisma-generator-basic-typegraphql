@@ -401,6 +401,9 @@ export const getGraphQLType = (model: string, field: DMMF.Field, file_info_map: 
         }
         return type_name
       }
+
+      return field_type
+
     }
   }
 
