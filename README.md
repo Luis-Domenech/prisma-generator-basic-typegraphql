@@ -34,22 +34,24 @@ generator basic_typegraphql {
 
 ## Config Options
 The generator can be configured with the following options:
-| Option            | Value                       | Default                                             | Comment                                                                                            |
+| Option | Value | Default | Comment |
 | ----------------- |:---------------------------:|:---------------------------------------------------:|:-------------------------------------------------------------------------------------------------- |
-| output            | ``` string ```              | ``` ../src/generated/type-graphql-types ```         | Folder where generated file will be stored. This folder is auto created if it doesn't exists.      |
-| outputName        | ``` string ```              | ``` index.ts ```                                    | Name of the file to generate.                                                                      |
-| wipeOutput        | ``` boolean ```             | ``` false ```                                       | If true, output folder will be deleted before new file is generated.                               |
-| strictModifiers   | ``` boolean ```             | ``` false ```                                       | If true, all modifiers require to have '///' and be on top of field it modifies.                   |
-| installDeps       | ``` boolean ```             | ``` false ```                                       | If true, dependencies based on schema will be installed like graphql-scalars.                      |
-| useYarn           | ``` boolean ```             | ``` false ```                                       | Sets whether to use yarn or npm for installing packages if installDeps is true.                    |
-| hideRelations     | ``` boolean ```             | ``` false ```                                       | By default, all fields without a modifier are emitted. If set to true, this will omit all relation types.             |
-| skipVerCheck      | ``` boolean ```             | ``` false ```                                       | If true, generator will run without checking installed prisma version.                             |
-| enumAsType        | ``` boolean ```             | ``` false ```                                       | If true, generator will make all enums types. Generated enum as types will be named the same as their enum name and actual enums will also be emitted with `_Enum` attached at the end. |
-| enumAsConst       | ``` boolean ```             | ``` false ```                                       | If true, generator will make all enums consts. Generated enum as consts will be named the same as their enum name. Actual enums won't be emitted, but types will also be emitted with their same enum names. |
-| optionalRelations | ``` boolean ```             | ``` true ```                                        | If true, generator will make all relation fields optional.                                         |
-| addNull           | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| null` to TS type of optional fields.                                |
-| addUndefined      | ``` boolean ```             | ``` false ```                                       | If true, generator will add `| undefined` to TS type of optional fields.                           |
-| addTypenameField  | ``` boolean ```             | ``` false ```                                       | If true, generator will add a `__typename` field to all TS types.                           |
+| output | ``` string ``` | ``` ../src/generated/type-graphql-types ``` | Folder where generated file will be stored. This folder is auto created if it doesn't exists. |
+| outputName | ``` string ``` | ``` index.ts ``` | Name of the file to generate. |
+| wipeOutput | ``` boolean ``` | ``` false ``` | If true, output folder will be deleted before new file is generated. |
+| strictModifiers | ``` boolean ``` | ``` false ``` | If true, all modifiers require to have '///' and be on top of field it modifies. |
+| installDeps | ``` boolean ``` | ``` false ``` | If true, dependencies based on schema will be installed like graphql-scalars. |
+| useYarn | ``` boolean ``` | ``` false ``` | Sets whether to use yarn or npm for installing packages if installDeps is true. |
+| hideRelations | ``` boolean ``` | ``` false ``` | By default, all fields without a modifier are emitted. If set to true, this will omit all relation types. |
+| skipVerCheck | ``` boolean ``` | ``` false ``` | If true, generator will run without checking installed prisma version. |
+| enumAsType | ``` boolean ``` | ``` false ``` | If true, generator will make all enums types. Generated enum as types will be named the same as their enum name and actual enums will also be emitted with `_Enum` attached at the end. |
+| enumAsConst | ``` boolean ``` | ``` false ``` | If true, generator will make all enums consts. Generated enum as consts will be named the same as their enum name. Actual enums won't be emitted, but types will also be emitted with their same enum names. |
+| optionalRelations | ``` boolean ``` | ``` true ``` | If true, generator will make all relation fields optional. |
+| addNull | ``` boolean ``` | ``` false ``` | If true, generator will add `| null` to TS type of optional fields. |
+| addUndefined | ``` boolean ``` | ``` false ``` | If true, generator will add `| undefined` to TS type of optional fields. |
+| addTypenameField | ``` boolean ``` | ``` false ``` | If true, generator will add a `__typename` field to all TS types. |
+| partialRelations | ``` boolean ``` | ``` false ``` | If true, generator will export duplicates of all exported models with the prefix `Partial`. These models have all fields as optional and also nullable if `addNull` is `true`. Also, all relation fields in exported regular and partial models will be set to use these partial counterparts of their type. |
+
 
 
 ## Modifiers

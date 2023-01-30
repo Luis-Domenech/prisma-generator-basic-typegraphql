@@ -1,5 +1,5 @@
 import { DMMF } from "@prisma/generator-helper"
-import { AUTO_GENERATED_COMMENT, ENUM_DIR, ENUM_TYPE_SUFFIX, MODELS_DIR, SCALARS_DIR } from "../constants"
+import { AUTO_GENERATED_COMMENT, ENUM_DIR, ENUM_TYPE_SUFFIX, MODELS_DIR, PARTIAL_MODEL_PREFIX, SCALARS_DIR } from "../constants"
 import { FieldModifier, FieldOptional, FileInfo, InitializedConfig } from "../types"
 import { addImport, getFromImport } from "../utils/addImport"
 import { installPackage } from "../utils/installPackages"
@@ -59,6 +59,25 @@ export const genFileContent = async (dmmf: DMMF.Document, fieldModifiers: FieldM
 
       if (config.importAsESM) model_exports.push(`export * from './${name}.js'`)
       else model_exports.push(`export * from './${name}'`)
+    }
+
+    if (config.partialRelations) {
+      const partial_name = `${PARTIAL_MODEL_PREFIX}${name}`
+
+      if (!file_info_map.get(partial_name)) {
+        const new_imports: string[] = []
+  
+        addImport('ObjectType', 'type-graphql', new_imports)
+        addImport('Field', 'type-graphql', new_imports)
+  
+        file_info_map.set(partial_name, {
+          path: path.join(config.outputDir, `${MODELS_DIR}/${partial_name}.ts`),
+          imports: new_imports
+        })
+  
+        if (config.importAsESM) model_exports.push(`export * from './${partial_name}.js'`)
+        else model_exports.push(`export * from './${partial_name}'`)
+      }
     }
   })
 

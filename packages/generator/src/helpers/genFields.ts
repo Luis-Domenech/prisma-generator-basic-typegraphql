@@ -1,12 +1,12 @@
 import { DMMF } from '@prisma/generator-helper'
-import { ENUM_TYPE_SUFFIX, INDENT_SPACES, PRISMA_TYPES } from '../constants'
+import { ENUM_TYPE_SUFFIX, INDENT_SPACES, PARTIAL_MODEL_PREFIX, PRISMA_TYPES } from '../constants'
 import { FieldModifier, FieldOptional, FileInfo, InitializedConfig } from '../types'
 import { addImport } from '../utils/addImport'
 import { isAnEnum } from '../utils/isEnum'
 import { logger } from '../utils/logger'
 import { getGraphQLType, getTypescriptType, isRelational } from './getType'
 
-export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig) => {
+export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifiers: FieldModifier[], fieldsOptional: FieldOptional[], enums: string[], file_info_map: Map<string, FileInfo>, config: InitializedConfig, prefix?: string, suffix?: string) => {
   
   // let toImport: {fromImport: string, newImport: string}[] = []
 
@@ -22,26 +22,35 @@ export const genFields = (model: DMMF.Model, fields: DMMF.Field[], fieldModifier
     const optionalRelations = config.optionalRelations
     const isScalar = PRISMA_TYPES.indexOf(field.type) !== -1
     const isRelation = isRelational(field, enums, config)
-    let isEnum = isAnEnum(field, enums, config)
-
+    const isEnum = isAnEnum(field, enums, config)
+    const isPartial = prefix === PARTIAL_MODEL_PREFIX
 
 
     let fieldName = field.name
-    fieldName += isOptional ? '?' : (isRelation ? optionalRelations ? '?' : '!' : '!')
+    
+    if (!isPartial) fieldName += isOptional ? '?' : (isRelation ? optionalRelations ? '?' : '!' : '!')
+    else fieldName += '?'
 
     // TS Type
-    let fieldType = getTypescriptType(model.name, field, file_info_map, config)
+    let fieldType = getTypescriptType(model.name, field, file_info_map, config, isEnum, isPartial)
+
     const fieldGraphQLTypeEnumExtension = config.enumAsType && isEnum ? ENUM_TYPE_SUFFIX : ''
     if (field.isList) fieldType += '[]'
 
-    if (fieldName.includes("?") && config.addNull) fieldType += ' | null'
-    if (fieldName.includes("?") && config.addUndefined) fieldType += ' | undefined'
-
+    if (!isPartial) {
+      if (fieldName.includes("?") && config.addNull) fieldType += ' | null'
+      if (fieldName.includes("?") && config.addUndefined) fieldType += ' | undefined'  
+    }
+    else {
+      if (config.addNull) fieldType += ' | null'
+    }
+    
     // GraphQL Type
-    let fieldGraphQLType = getGraphQLType(model.name, field, file_info_map, config, '', fieldGraphQLTypeEnumExtension)
+    let fieldGraphQLType = getGraphQLType(model.name, field, file_info_map, config, isEnum, isPartial, '', fieldGraphQLTypeEnumExtension)
+    
     if (field.isList) fieldGraphQLType = `[${fieldGraphQLType}]`
     
-    const nullable = fieldName.includes("?") ? true : (fieldModifier.nullable ? true : false)
+    const nullable = isPartial ? true : fieldName.includes("?") ? true : (fieldModifier.nullable ? true : false)
 
     const decorator = `${" ".repeat(INDENT_SPACES)}@Field(() => ${fieldGraphQLType}, { nullable: ${nullable} })\n`
 

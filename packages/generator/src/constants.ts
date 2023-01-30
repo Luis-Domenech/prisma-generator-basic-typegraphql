@@ -78,3 +78,5 @@ export const REGEX = {
 }
 
 export const AS_TYPE_SUFFIX = 'GraphQLType'
+
+export const PARTIAL_MODEL_PREFIX = 'Partial'

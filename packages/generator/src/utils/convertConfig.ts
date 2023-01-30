@@ -13,7 +13,6 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     outputDir: generator_config.output ? 
                 (generator_config.output.value ? generator_config.output.value : (config.outputDir ? config.outputDir : DEFAULT_OUTPUT_DIR)) : 
                 (config.outputDir ? config.outputDir : DEFAULT_OUTPUT_DIR),
-    // outputName: config.outputName ? config.outputName : DEFAULT_FILE_NAME,
     skipVerCheck: config.skipVerCheck == 'true',
     installDeps: config.installDeps == 'true',
     enumAsType: config.enumAsType == 'true',
@@ -23,5 +22,6 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     optionalRelations: config.optionalRelations == 'true' ? true : (config.optionalRelations == 'false' ? false : false),
     addTypenameField: config.addTypenameField == 'true',
     importAsESM: config.importAsESM == 'true',
+    partialRelations: config.partialRelations == 'true',
   }
 }

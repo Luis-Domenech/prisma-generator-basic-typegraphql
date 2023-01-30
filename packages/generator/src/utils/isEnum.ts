@@ -2,11 +2,11 @@ import { DMMF } from "@prisma/generator-helper";
 import { ENUM_TYPE_SUFFIX, PRISMA_TYPES, REGEX } from "../constants";
 import { InitializedConfig } from "../types";
 
-export const isAnEnum = (field: DMMF.Field, enums: string[], config: InitializedConfig) => {
+export const isAnEnum = (field: DMMF.Field, enums: string[], config: InitializedConfig): boolean => {
   let actualEnums: RegExpMatchArray | null
 
   
-  let matchWordeBeforeBracketRegex = /[\w]+\s+\{/gm
+  let matchWordsBeforeBracketRegex = /[\w]+\s+\{/gm
   let removeWhiteSpaceAndBracketRegex = /\s+\{+/gm
   
   // For const
@@ -37,8 +37,10 @@ export const isAnEnum = (field: DMMF.Field, enums: string[], config: Initialized
       else {
         actualEnum.replace(REGEX.removeEqualsAndWhiteSpaceAndBracketRegex, "")
       }
+      const cleaned = actualEnum.match(REGEX.matchFirstWord)
+      const compare = cleaned ? cleaned[0] : ''
 
-      if (actualEnum === field.type) isEnum = true
+      if (compare === field.type) isEnum = true
     })
   }
 

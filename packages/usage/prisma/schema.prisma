@@ -32,6 +32,7 @@ generator basic_typegraphql {
   enumAsConst       = true
   addNull           = true
   addTypenameField  = true
+  partialRelations  = true
 }
 
 model TestScalarsRequired {
