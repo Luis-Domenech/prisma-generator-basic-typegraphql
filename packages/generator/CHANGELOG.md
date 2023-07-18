@@ -1,3 +1,10 @@
+## [1.1.19](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.18...v1.1.19) (2023-07-18)
+
+
+### Bug Fixes
+
+* **options:** Added new option for code gen ([6b0ee60](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/6b0ee60c701f8165caa79a3565be9596f893122d))
+
 ## [1.1.18](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.17...v1.1.18) (2023-01-30)
 
 
