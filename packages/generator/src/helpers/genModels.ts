@@ -28,11 +28,15 @@ export const genModels = async (models: DMMF.Model[], fieldModifiers: FieldModif
       }
     }
     
+    const object_type_line = config.typeGraphqlV2 ? 
+      `@ObjectType("${model.name}")` :
+      `@ObjectType("${model.name}", { isAbstract: true })`
+    
 
     const content = [
       AUTO_GENERATED_COMMENT,
       imports.join('\n'),
-      `@ObjectType("${model.name}", { isAbstract: true })`,
+      object_type_line,
       `export class ${model.name} {`,
       typename_field,
       fields,

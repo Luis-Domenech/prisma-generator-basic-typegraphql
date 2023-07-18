@@ -30,6 +30,7 @@ export interface ExtendedConfig extends Dictionary<string> {
   addTypenameField: string
   importAsESM: string
   partialRelations: string
+  typeGraphqlV2: string
 }
 
 export interface InitializedConfig {
@@ -48,6 +49,7 @@ export interface InitializedConfig {
   addTypenameField: boolean
   importAsESM: boolean
   partialRelations: boolean
+  typeGraphqlV2: boolean
 }
 
 export type FileInfo = {

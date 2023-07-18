@@ -51,6 +51,7 @@ The generator can be configured with the following options:
 | addUndefined | ``` boolean ``` | ``` false ``` | If true, generator will add `| undefined` to TS type of optional fields. |
 | addTypenameField | ``` boolean ``` | ``` false ``` | If true, generator will add a `__typename` field to all TS types. |
 | partialRelations | ``` boolean ``` | ``` false ``` | If true, generator will export duplicates of all exported models with the prefix `Partial`. These models have all fields as optional and also nullable if `addNull` is `true`. Also, all relation fields in exported regular and partial models will be set to use these partial counterparts of their type. |
+| typeGraphqlV2 | ``` boolean ``` | ``` false ``` | Set to true if you project uses v2 beta of the [type-graphql](https://www.npmjs.com/package/type-graphql) package. |
 
 
 

@@ -23,5 +23,6 @@ export const convertConfig = (generator_config: GeneratorConfig): InitializedCon
     addTypenameField: config.addTypenameField == 'true',
     importAsESM: config.importAsESM == 'true',
     partialRelations: config.partialRelations == 'true',
+    typeGraphqlV2: config.typeGraphqlV2 == 'true'
   }
 }
