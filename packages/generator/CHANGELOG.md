@@ -1,3 +1,10 @@
+## [1.1.20](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.19...v1.1.20) (2023-07-18)
+
+
+### Bug Fixes
+
+* **option:** Added missing new option logic for Partials ([62f530a](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/commit/62f530a47f0d27c2fd2677ec2c57ca11c4476920))
+
 ## [1.1.19](https://github.com/Luis-Domenech/prisma-generator-basic-typegraphql/compare/v1.1.18...v1.1.19) (2023-07-18)
 
 
